@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
-  // Service Checklists Data
+// Service Checklists Data
 const serviceChecklists = {
     standard: {
       title: "Standard Clean Checklist",
@@ -218,20 +218,21 @@ const serviceChecklists = {
     }
   };
   
-  // Modal Open/Close Event Handlers
-  (() => {
+  // Modal Initialization
+  function initChecklistModal() {
     const modal = document.getElementById('checklistModal');
     const closeBtn = document.getElementById('closeChecklistModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBadge = document.getElementById('modalBadge');
     const modalBody = document.getElementById('modalBody');
     const modalCta = document.getElementById('modalCtaBtn');
+    const buttons = document.querySelectorAll('.btn-checklist-trigger');
   
     if (!modal) return;
   
-    // Open Modal on button click
-    document.querySelectorAll('.btn-checklist-trigger').forEach(button => {
-      button.addEventListener('click', () => {
+    buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
         const serviceKey = button.getAttribute('data-service');
         const data = serviceChecklists[serviceKey];
         if (!data) return;
@@ -254,7 +255,6 @@ const serviceChecklists = {
       });
     });
   
-    // Close Modal handler
     const closeModal = () => {
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
@@ -263,18 +263,21 @@ const serviceChecklists = {
   
     closeBtn?.addEventListener('click', closeModal);
   
-    // Click outside dialog to close
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
     });
   
-    // Escape key to close
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeModal();
       }
     });
   
-    // Close on clicking CTA
     modalCta?.addEventListener('click', closeModal);
-  })();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChecklistModal);
+  } else {
+    initChecklistModal();
+  }
