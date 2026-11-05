@@ -947,4 +947,137 @@
     .container {
       padding: 0 16px;
     }
+    /* ==========================================================================
+   Mobile Navigation & Hamburger Menu
+   ========================================================================== */
+
+/* Enable smooth scrolling when tapping anchor jump links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base state: Hidden on desktop */
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin: 5px 0;
+  background-color: #3b1d5a; /* Brand purple */
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animated 'X' when the hamburger menu is active */
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile dropdown drawer (hidden by default) */
+.mobile-nav-menu {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1rem 1.5rem 1.5rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid #f0eaf8;
+}
+
+/* Display drawer when toggled via JavaScript */
+.mobile-nav-menu.is-active {
+  display: flex;
+}
+
+/* Mobile navigation link formatting */
+.mobile-nav-menu .mobile-link {
+  padding: 0.85rem 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #333333;
+  text-decoration: none;
+  border-bottom: 1px solid #f2f2f2;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-menu .mobile-link:hover {
+  color: #6a1b9a;
+}
+
+.mobile-nav-menu .highlight-link {
+  color: #6a1b9a;
+  font-weight: 600;
+}
+
+.mobile-nav-menu .phone-link {
+  font-weight: 600;
+  color: #2e7d32; /* Subtle accent green for phone tap */
+}
+
+/* Mobile Call To Action Button */
+.mobile-nav-menu .mobile-cta-btn {
+  margin-top: 1.25rem;
+  padding: 0.85rem;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Mobile Responsive Breakpoint (768px and below)
+   ========================================================================== */
+   @media (max-width: 768px) {
+    /* Ensure header container stays on one line */
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      position: relative;
+    }
+  
+    /* Hide the horizontal desktop navigation bar */
+    .desktop-nav {
+      display: none !important;
+    }
+  
+    /* Display the hamburger toggle button */
+    .mobile-menu-toggle {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 32px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+    }
+  
+    /* The 3 visible bars */
+    .hamburger-bar {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #3b1d5a;
+      border-radius: 2px;
+    }
   }
+}
