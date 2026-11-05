@@ -1142,3 +1142,171 @@ html {
   color: #3b1d5a;
 }
   }
+  /* Checklist Trigger Button on Cards */
+.btn-checklist-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #f7f3fb;
+  color: #3b1d5a;
+  border: 1px solid #e2d9ee;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.btn-checklist-trigger:hover {
+  background-color: #3b1d5a;
+  color: #ffffff;
+  border-color: #3b1d5a;
+}
+
+/* Modal Overlay Background */
+.checklist-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(20, 10, 30, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.checklist-modal-overlay.active {
+  display: flex !important;
+}
+
+/* Modal Dialog Box */
+.checklist-modal-dialog {
+  background: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.checklist-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  background: #faf7fd;
+  border-bottom: 1px solid #ebdff5;
+}
+
+.checklist-modal-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b3398;
+}
+
+.checklist-modal-header h3 {
+  margin: 0.25rem 0 0 0;
+  font-size: 1.4rem;
+  color: #2b1142;
+}
+
+.checklist-modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+}
+
+.checklist-modal-close:hover {
+  color: #222;
+}
+
+/* Body / Room Sections */
+.checklist-modal-body {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.checklist-room-block {
+  background: #ffffff;
+  border: 1px solid #f0eaf7;
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+}
+
+.checklist-room-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3b1d5a;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.checklist-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.checklist-items-list li {
+  font-size: 0.92rem;
+  color: #444;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.checklist-items-list li::before {
+  content: "✔";
+  color: #10b981;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Footer */
+.checklist-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  background: #ffffff;
+  display: flex;
+  justify-content: stretch;
+}
+
+.modal-cta-btn {
+  width: 100%;
+  text-align: center;
+  padding: 0.85rem;
+  border-radius: 8px;
+  text-decoration: none;
+}

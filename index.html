@@ -120,6 +120,9 @@
               </div>
           <h3>Recurring Maintenance</h3>
           <p class="service-cadence">Weekly, Bi-Weekly, or Monthly</p>
+          <button type="button" class="btn-checklist-trigger" data-service="standard">
+            📋 View Full Checklist
+          </button>
           <p>Our bread-and-butter service. We keep your kitchens, bathrooms, floors, and living spaces spotless on a reliable, predictable schedule.</p>
           <ul class="service-features">
             <li>Kitchen & appliance exteriors disinfected</li>
@@ -141,6 +144,10 @@
           </div>
           <h3>Deep Clean & Reset</h3>
           <p class="service-cadence">One-Time or Initial Visit</p>
+          <button type="button" class="btn-checklist-trigger" data-service="deep">
+            📋 View Full Checklist
+          </button>
+        </div>
           <p>A deeper baseline reset that gets your home to our high standard before transitioning to smooth ongoing maintenance.</p>
           <ul class="service-features">
             <li>Everything in standard maintenance</li>
@@ -159,6 +166,10 @@
               </div>
           <h3>Move-In / Move-Out Cleans</h3>
           <p class="service-cadence">Empty Home Turnover</p>
+          <button type="button" class="btn-checklist-trigger" data-service="move">
+            📋 View Full Checklist
+          </button>
+        </div>
           <p>Thorough top-to-bottom cleans designed for homeowners, landlords, and tenants who want a spotless, handover-ready home.</p>
           <ul class="service-features">
             <li>Inside empty cupboards & drawers</li>
@@ -325,5 +336,25 @@
       }
     }
   </script>
+  <!-- Service Checklist Modal -->
+<div class="checklist-modal-overlay" id="checklistModal" aria-hidden="true">
+  <div class="checklist-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="checklist-modal-header">
+      <div>
+        <span class="checklist-modal-badge" id="modalBadge">Detailed Checklist</span>
+        <h3 id="modalTitle">Service Checklist</h3>
+      </div>
+      <button type="button" class="checklist-modal-close" id="closeChecklistModal" aria-label="Close modal">&times;</button>
+    </div>
+    
+    <div class="checklist-modal-body" id="modalBody">
+      <!-- Dynamic Room Checklists will inject here -->
+    </div>
+
+    <div class="checklist-modal-footer">
+      <a href="#calculator" class="btn btn-primary modal-cta-btn" id="modalCtaBtn">Calculate Your Instant Quote</a>
+    </div>
+  </div>
+</div>
   </body>
 </html>
