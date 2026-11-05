@@ -1071,6 +1071,30 @@ html {
       padding: 3px 0 !important;
       box-sizing: border-box !important;
     }
+    /* Constrain logo container and image size on mobile */
+    .logo-link,
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      max-width: 65%;
+      flex-shrink: 1;
+    }
+
+    .logo-link img,
+    .nav-brand img,
+    .logo,
+    .nav-logo {
+      max-height: 44px !important;
+      width: auto !important;
+      max-width: 100% !important;
+      object-fit: contain !important;
+    }
+
+    /* Prevent the hamburger toggle from being compressed or pushed */
+    .mobile-menu-toggle {
+      flex-shrink: 0 !important;
+      margin-left: auto !important;
+    }
   
     .hamburger-bar {
       display: block !important;
