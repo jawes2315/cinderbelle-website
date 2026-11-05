@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+<script src="script.js"></script>
 <body>
 
   <!-- Top Announcement Banner -->
@@ -16,20 +17,40 @@
     🏆 Voted Burlington's Favourite Cleaning Company (2025 and 2026 Readers' Choice)
   </div>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <img src="small logo.png" alt="Cinderbelle Cleaning" class="logo-img">
+  <header class="header">
+    <div class="nav-container">
+      <!-- Brand Logo -->
+      <a href="/" class="logo-link">
+        <img src="images/cinderbelle-logo.png" alt="Cinderbelle Cleaning" class="logo">
       </a>
-      <nav class="nav-links">
-        <a href="index.html#services">Services</a>
-        <a href="index.html#areas">Service Areas</a>
-        <a href="index.html#reviews">Reviews</a>
-        <a href="careers.html" style="color: var(--primary); font-weight: 700;">Careers</a>
-        <a href="tel:9054077098" class="phone-link">(905) 407–7098</a>
-        <a href="index.html#quote" class="btn btn-primary">Get Instant Quote</a>
+  
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav">
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/#areas">Service Areas</a>
+        <a href="/#reviews">Reviews</a>
+        <a href="careers.html" class="active">Careers</a>
+        <a href="/#calculator" class="btn btn-primary">Get Instant Quote</a>
       </nav>
+  
+      <!-- Mobile Hamburger Toggle Button -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  
+    <!-- Mobile Dropdown Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+      <a href="/" class="mobile-link">Home</a>
+      <a href="/#services" class="mobile-link">Services</a>
+      <a href="/#areas" class="mobile-link">Service Areas</a>
+      <a href="/#reviews" class="mobile-link">Reviews</a>
+      <a href="careers.html" class="mobile-link highlight-link">Careers</a>
+      <a href="tel:19054077098" class="mobile-link phone-link">📞 (905) 407-7098</a>
+      <a href="/#calculator" class="btn btn-primary btn-nav mobile-cta-btn">Get Instant Quote</a>
     </div>
   </header>
 
