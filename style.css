@@ -1082,19 +1082,26 @@ html {
       border-radius: 2px !important;
     }
     /* Mobile drawer default (hidden) */
-.mobile-nav-drawer {
+/* Mobile drawer default (hidden) */
+.mobile-nav-menu {
   display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
   width: 100%;
   background-color: #ffffff;
   border-top: 1px solid #eee;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 /* Mobile drawer open state */
-.mobile-nav-drawer.active {
-  display: block !important;
+.mobile-nav-menu.active {
+  display: flex !important;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  gap: 1rem;
 }
-
 .mobile-nav-links {
   list-style: none;
   padding: 1.5rem;

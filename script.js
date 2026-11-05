@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('mobileMenuToggle');
-    const navDrawer = document.getElementById('mobileNavDrawer');
-  
+    const navDrawer = document.getElementById('mobileNavMenu');
+          
     if (toggleBtn && navDrawer) {
       toggleBtn.addEventListener('click', () => {
         const isOpen = navDrawer.classList.toggle('active');
