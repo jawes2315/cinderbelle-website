@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow-y: hidden;
+      }
+  
+      @media (max-width: 480px) {
+        .pricing-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
+</head>
+<body>
+  <div style="max-width: 420px; margin: 12px auto; font-family: sans-serif; padding: 16px 20px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+      <div id="widget-header" style="text-align: center; margin-bottom: 12px;">
+    <img id="company-logo" src="" alt="Company Logo" style="display: none; max-height: 55px; max-width: 200px; margin: 0 auto; object-fit: contain;">
+    <h2 id="widget-title" style="margin: 0; font-size: 24px; color: #0f172a;">Get an Instant Quote</h2>
+    </div>
+
+    <div id="step-1">
+
+<!-- 1. Square Footage Slider -->
+<div class="form-group" style="margin-bottom: 12px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+    <label for="sqft-slider" style="font-weight: 600; font-size: 14px; color: #334155;">Home Size (Sq Ft)</label>
+    <span id="sqft-display" style="font-weight: 700; font-size: 16px; color: #7a1fa2;">1,500 sq ft</span>
+  </div>
+  <input 
+    type="range" 
+    id="sqft-slider" 
+    min="500" 
+    max="4100" 
+    step="100" 
+    value="1500" 
+    style="width: 100%; accent-color: #7a1fa2; cursor: pointer;"
+  />
+  <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-top: 4px;">
+    <span>500 sq ft</span>
+    <span>1,500 sq ft</span>
+    <span>4,000+ sq ft</span>
+  </div>
+</div>
+<!-- Service Frequency (Controls Recurring Discounts) -->
+<div style="margin-bottom: 12px;">
+  <label for="frequency" style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 6px;">
+    Cleaning Frequency
+  </label>
+  <select id="frequency" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background-color: #fff; color: #334155; cursor: pointer;">
+    <option value="weekly">Weekly</option>
+    <option value="biweekly" selected>Bi-Weekly</option>
+    <option value="monthly">Monthly</option>
+    <option value="one-time">One-Time Clean</option>
+  </select>
+</div>
+<!-- 2. Bedrooms & Bathrooms (Informational - $0) -->
+<div style="display: flex; gap: 12px; margin-bottom: 12px;">
+  <div style="flex: 1;">
+    <label for="bedrooms-select" style="font-weight: 600; font-size: 14px; color: #334155;">Bedrooms</label>
+    <select id="bedrooms-select" style="width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px;">
+      <option value="1">1 Bed</option>
+      <option value="2">2 Beds</option>
+      <option value="3" selected>3 Beds</option>
+      <option value="4">4 Beds</option>
+      <option value="5+">5+ Beds</option>
+    </select>
+  </div>
+  <div style="flex: 1;">
+    <label for="bathrooms-select" style="font-weight: 600; font-size: 14px; color: #334155;">Bathrooms</label>
+    <select id="bathrooms-select" style="width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 6px;">
+      <option value="1">1 Bath</option>
+      <option value="2" selected>2 Baths</option>
+      <option value="3">3 Baths</option>
+      <option value="4">4 Baths</option>
+      <option value="5+">5+ Baths</option>
+    </select>
+  </div>
+</div>
+
+<!-- Household Conditions (Pricing hidden from user) -->
+<div style="margin-bottom: 20px;">
+  <label style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 8px;">Household Details</label>
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #475569; cursor: pointer;">
+      <input type="checkbox" id="condition-pets" value="0.02" />
+      <span>Pets in the home</span>
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #475569; cursor: pointer;">
+      <input type="checkbox" id="condition-kids" value="0.01" />
+      <span>Children in the home</span>
+    </label>
+  </div>
+</div>
+
+<!-- 4. Extra Add-ons -->
+<div style="margin-bottom: 12px;">
+  <label style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 10px;">
+    Optional Add-ons
+  </label>
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+
+    <!-- Inside Fridge -->
+    <label style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: border-color 0.15s ease;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="addon-fridge" value="30" style="accent-color: #7a1fa2; width: 16px; height: 16px; cursor: pointer;" />
+        <span style="font-size: 14px; font-weight: 500; color: #1e293b;">Inside Fridge</span>
+      </div>
+      <span style="font-size: 13px; font-weight: 600; color: #7a1fa2;">+$30</span>
+    </label>
+
+    <!-- Inside Oven -->
+    <label style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: border-color 0.15s ease;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="addon-oven" value="35" style="accent-color: #7a1fa2; width: 16px; height: 16px; cursor: pointer;" />
+        <span style="font-size: 14px; font-weight: 500; color: #1e293b;">Inside Oven</span>
+      </div>
+      <span style="font-size: 13px; font-weight: 600; color: #7a1fa2;">+$35</span>
+    </label>
+
+    <!-- Interior Windows Stepper -->
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+      <div>
+        <div style="font-size: 14px; font-weight: 500; color: #1e293b;">Interior Windows</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 1px;">$5 per window pane</div>
+      </div>
+      <div style="display: flex; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden;">
+        <button type="button" id="btn-win-minus" style="width: 32px; height: 32px; border: none; background: transparent; color: #475569; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">−</button>
+        <span id="window-count-display" style="min-width: 28px; text-align: center; font-weight: 700; font-size: 14px; color: #0f172a;">0</span>
+        <button type="button" id="btn-win-plus" style="width: 32px; height: 32px; border: none; background: transparent; color: #475569; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
+      </div>
+
+  </div>
+</div>    
+</div>
+
+
+<!-- Next Step Button -->
+<div style="margin-top: 14px;">
+  <button 
+    type="button" 
+    id="next-btn" 
+    style="width: 100%; padding: 12px; background-color: #7a1fa2; color: #ffffff; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;"
+  >
+    Next Step &rarr;
+  </button>
+</div>
+
+</div> <!-- Explicitly Closes id="step-1" -->
+
+<!-- STEP 2: LEAD CAPTURE (Initially Hidden) -->
+<div id="step-2" style="display: none;">  <!-- Header row with Back button & Step Counter -->
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+    <button type="button" id="back-btn" style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 12px; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+      ← Back
+    </button>
+    <span style="font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Step 2 of 2</span>
+  </div>
+
+  <p style="margin: 0 0 18px 0; color: #475569; font-size: 14px; line-height: 1.4;">
+    Where should we send your personalized quote?
+  </p>    
+  
+  <label for="client-name" style="font-size: 13px; font-weight: 600; color: #334155;">Full Name:</label><br>
+  <input type="text" id="client-name" placeholder="Jane Doe" style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+
+  <label for="client-email" style="font-size: 13px; font-weight: 600; color: #334155;">Email Address:</label><br>
+  <input type="email" id="client-email" placeholder="jane@example.com" style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+
+  <label for="client-phone" style="font-size: 13px; font-weight: 600; color: #334155;">Phone Number:</label><br>
+  <input type="tel" id="client-phone" placeholder="(905) 555-0123" style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+  
+  <p id="error-msg" style="color: #dc2626; font-size: 13px; margin: 0 0 12px; display: none; font-weight: bold;"></p>
+  
+  <div style="margin-bottom: 20px;">
+    <label for="lead-postal" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">Postal / Zip Code</label>
+    <input type="text" id="lead-postal" placeholder="e.g. L7L 1A1" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+    <span id="postal-error" style="display: none; color: #ef4444; font-size: 12px; margin-top: 4px;"></span>
+  </div>
+
+  <button id="submit-btn" type="button" style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;">
+    Get Your Estimate Now
+  </button>
+  <div style="margin-top: 18px; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center;">
+    <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5;">
+      🔒 <strong>No Spam Guarantee:</strong> We only use your contact details to deliver your quote and confirm cleaning availability. No pushy sales calls.
+    </p>
+  </div>
+</div> <!-- Closes step-2 -->
+
+<!-- STEP 3: THE RESULT -->
+<div id="result" style="display: none; margin-top: 24px; padding: 20px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+  <div style="text-align: center; margin-bottom: 16px;">
+    <div style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; background-color: #ecfdf5; border-radius: 50%; color: #059669; font-size: 22px; font-weight: bold; margin-bottom: 8px;">✓</div>
+    <h3 style="margin: 0; font-size: 18px; color: #0f172a;">Your Cleaning Estimate</h3>
+    <p id="result-custom-thankyou" style="margin: 6px 0 0; font-size: 13px; color: #64748b;"></p>
+  </div>
+
+  <div style="border-top: 1px dashed #cbd5e1; border-bottom: 1px dashed #cbd5e1; padding: 12px 0; margin-bottom: 16px; font-size: 14px; color: #334155; line-height: 1.6;">
+    <div style="display: flex; justify-content: space-between;">
+      <span>Home Size:</span>
+      <strong id="summary-rooms">-</strong>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+      <span>Frequency:</span>
+      <strong id="summary-frequency">-</strong>
+    </div>
+    <div id="summary-addons-row" style="display: flex; justify-content: space-between;">
+      <span>Add-ons:</span>
+      <strong id="summary-addons" style="text-align: right; max-width: 60%;">-</strong>
+    </div>
+  </div>
+
+  <!-- MODE C: Walk-through Required Notice (Homes 4,000+ sq ft) -->
+  <div id="walkthrough-card" style="display: none; background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 8px; padding: 18px; text-align: center; margin-bottom: 18px;">
+    <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background-color: #fae8ff; border-radius: 50%; color: #7a1fa2; font-size: 22px; margin-bottom: 10px;">📋</div>
+    <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #581c87;">In-Person Walk-through Required</h4>
+    <p style="margin: 0; font-size: 14px; color: #6b21a8; line-height: 1.5;">
+      For homes 4,000 sq ft and larger, we provide customized on-site scoping to ensure exact pricing. We will call you shortly to arrange a walk-through.
+    </p>
+  </div>
+  <!-- Walk-through Required Notice -->
+<div id="walkthrough-card" style="display: none; background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 8px; padding: 18px; text-align: center; margin-bottom: 18px;">
+  <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background-color: #fae8ff; border-radius: 50%; color: #7a1fa2; font-size: 22px; margin-bottom: 10px;">📋</div>
+  <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #581c87;">In-Person Walk-through Required</h4>
+  <p style="margin: 0; font-size: 14px; color: #6b21a8; line-height: 1.5;">
+    For homes 4,000 sq ft and larger, we provide customized on-site scoping to ensure exact pricing. We will call you shortly to arrange a walk-through.
+  </p>
+</div>
+  <!-- MODE B: Single / One-Time Total -->
+  <div id="single-pricing-card">
+    <div id="summary-subtotal-row" style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px; color: #475569;">
+      <span>Subtotal:</span>
+      <span id="summary-subtotal">$0.00</span>
+    </div>
+    <div id="summary-tax-row" style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #475569;">
+      <span id="summary-tax-label">Tax:</span>
+      <span id="summary-tax">$0.00</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 10px; border-top: 1px solid #e2e8f0; margin-bottom: 18px;">
+      <span style="font-size: 15px; font-weight: 700; color: #0f172a;">Estimated Total:</span>
+      <span id="summary-total" style="font-size: 28px; font-weight: 800; color: #7a1fa2;">$0.00</span>
+    </div>
+  </div>
+  
+  <!-- MODE A: Two-Tier Recurring Breakdown -->
+  <div id="recurring-pricing-card" style="display: none; margin-bottom: 18px;">
+    <div class="pricing-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">      
+      <!-- First Visit Card -->
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left;">
+        <div id="first-visit-header" style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; margin-bottom: 6px;">1ST VISIT CLEAN</div>
+        <div style="font-size: 13px; color: #475569; display: flex; justify-content: space-between; margin-bottom: 2px;">
+          <span>Rate:</span>
+          <span id="first-subtotal-display">$0.00</span>
+        </div>
+        <div style="font-size: 13px; color: #475569; display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span id="first-tax-label">Tax:</span>
+          <span id="first-tax-display">$0.00</span>
+        </div>
+        <div style="border-top: 1px solid #cbd5e1; padding-top: 6px; display: flex; justify-content: space-between; align-items: baseline;">
+          <span style="font-size: 13px; font-weight: 700; color: #0f172a;">Total:</span>
+          <span id="first-total-display" style="font-size: 18px; font-weight: 800; color: #0f172a;">$0.00</span>
+        </div>
+      </div>
+  
+      <!-- Recurring Maintenance Card -->
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px; text-align: left;">
+        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: #166534; letter-spacing: 0.5px; margin-bottom: 6px;">Ongoing Visits</div>
+        <div style="font-size: 13px; color: #15803d; display: flex; justify-content: space-between; margin-bottom: 2px;">
+          <span>Rate:</span>
+          <span id="recurring-subtotal-display">$0.00</span>
+        </div>
+        <div style="font-size: 13px; color: #15803d; display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span id="recurring-tax-label">Tax:</span>
+          <span id="recurring-tax-display">$0.00</span>
+        </div>
+        <div style="border-top: 1px solid #86efac; padding-top: 6px; display: flex; justify-content: space-between; align-items: baseline;">
+          <span style="font-size: 13px; font-weight: 700; color: #14532d;">Total:</span>
+          <span id="recurring-total-display" style="font-size: 18px; font-weight: 800; color: #16a34a;">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimum Fee Transparency Notice -->
+    <p id="minimum-fee-note" style="display: none; font-size: 13px; color: #475569; background: #f1f5f9; border-left: 3px solid #0284c7; padding: 6px 10px; margin: 12px 0 0; border-radius: 0 4px 4px 0;">
+      ℹ️ Note: Standard minimum visit service fee applied.
+    </p>
+  </div>
+
+
+  <p style="margin: 0; font-size: 12px; color: #94a3b8; text-align: center;">
+    *Final pricing may vary slightly based on home condition and initial deep clean requirements.
+  </p>
+  <div style="margin-top: 18px; padding: 16px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px; text-align: left;">
+    <div style="font-weight: 700; font-size: 13px; color: #7a1fa2; margin-bottom: 8px;">
+      📋 What Happens Next?
+    </div>
+</div> <!-- Closes #result -->
+
+  <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #475569; line-height: 1.6;">
+    <li>Our team reviews your home specs and route schedule.</li>
+    <li>We will text or call you shortly to confirm your preferred arrival window.</li>
+    <li>No payment or deposit is required. </li>
+  </ul>
+</div>
+</div> <!-- Closes outer card: <div style="max-width: 420px; ..."> -->
+
+<script src="app.js"></script>
+</body>
+</html>

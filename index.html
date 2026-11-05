@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinderbelle Cleaning | Award-Winning Home Cleaning in Burlington & Oakville</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    🏆 Voted Burlington's Favourite Cleaning Company (2025 and 2026 Readers' Choice)
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+        <a href="#" class="logo">
+            <img src="small logo.png" alt="Cinderbelle Cleaning" class="logo-img" />
+          </a>
+                <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#areas">Service Areas</a>
+        <a href="#reviews">Reviews</a>
+        <a href="careers.html">Careers</a>
+        <a href="tel:19054077098" class="phone-link">📞 (905) 407-7098</a>
+        <a href="#calculator" class="btn btn-primary btn-nav">Get Instant Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section with Embedded Calculator -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="badge">Trusted Local Residential Cleaners</div>
+        <h1>A Cleaner Home, Without the Guesswork.</h1>
+        <p class="hero-desc">
+          Professional, reliable, and detail-driven home cleaning across Burlington, Oakville, and surrounding communities. Get an instant free quote for your home right now.
+        </p>
+
+        <div class="hero-perks">
+          <div class="perk-item">
+            <span class="perk-check">✓</span> Fully Insured & Vetted Staff
+          </div>
+          <div class="perk-item">
+            <span class="perk-check">✓</span> No Contracts
+          </div>
+          <div class="perk-item">
+            <span class="perk-check">✓</span> 100% Satisfaction Guarantee
+          </div>
+        </div> <!-- This closes .hero-text (Left Column) -->
+
+<!-- AWARD BADGE (Inside hero-content) -->
+<div class="award-proof-wrapper">
+    <img 
+      src="readersfavaward.jpg" 
+      alt="BurlingtonToday.com Reader Favourite 2026" 
+      class="award-badge-img"
+      style="max-width: 240px; width: 100%; height: auto; border-radius: 10px; display: block; margin-top: 18px;"
+    />
+  </div>
+
+</div> <!-- This closes .hero-content (Left Column) -->
+
+<!-- Live Interactive Widget Embed (Right Column) -->
+<div class="hero-calculator" id="calculator">        <div class="calc-wrapper">
+          <div class="calc-header-badge">Instant Online Estimate</div>
+          <iframe 
+            src="./widget/index.html" 
+            title="Cinderbelle Instant Quote Calculator"
+            loading="lazy"
+            
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- Services Section -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Cleaning Tailored to Your Home Routine</h2>
+        <p>Whether you need recurring upkeep or a one-time reset, we have you covered.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+              </div>
+          <h3>Recurring Maintenance</h3>
+          <p class="service-cadence">Weekly, Bi-Weekly, or Monthly</p>
+          <p>Our bread-and-butter service. We keep your kitchens, bathrooms, floors, and living spaces spotless on a reliable, predictable schedule.</p>
+          <ul class="service-features">
+            <li>Kitchen & appliance exteriors disinfected</li>
+            <li>Full bathroom sanitization & scrub</li>
+            <li>Dusting, vacuuming & hard floor washing</li>
+          </ul>
+        </div>
+
+        <div class="service-card featured">
+          <div class="popular-pill">Recommended Initial Clean</div>
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="M5 3v4"/>
+              <path d="M19 17v4"/>
+              <path d="M3 5h4"/>
+              <path d="M17 19h4"/>
+            </svg>
+          </div>
+          <h3>Deep Clean & Reset</h3>
+          <p class="service-cadence">One-Time or Initial Visit</p>
+          <p>A deeper baseline reset that gets your home to our high standard before transitioning to smooth ongoing maintenance.</p>
+          <ul class="service-features">
+            <li>Everything in standard maintenance</li>
+            <li>Extra attention to baseboards & doors</li>
+            <li>Detailed grime and dust elimination</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-1.8 0l-3.3 1.9A1.8 1.8 0 0 0 1.5 7.7v8.6a1.8 1.8 0 0 0 .95 1.56l3.3 1.9a1.78 1.78 0 0 0 1.8 0l8.95-5.16a1.8 1.8 0 0 0 .95-1.56V11a1.8 1.8 0 0 0-.95-1.6Z"/>
+                  <polyline points="3.29 7 12 12 20.71 7"/>
+                  <line x1="12" y1="22" x2="12" y2="12"/>
+                </svg>
+              </div>
+          <h3>Move-In / Move-Out Cleans</h3>
+          <p class="service-cadence">Empty Home Turnover</p>
+          <p>Thorough top-to-bottom cleans designed for homeowners, landlords, and tenants who want a spotless, handover-ready home.</p>
+          <ul class="service-features">
+            <li>Inside empty cupboards & drawers</li>
+            <li>Full interior appliance detailing</li>
+            <li>Baseboards, trim, and closet interiors</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas Section -->
+  <div id="areas" class="areas-card">
+    <span class="badge">Coverage Check</span>
+    <h2 style="margin-bottom: 8px !important;">Proudly Serving Halton & Hamilton Regions</h2>    
+    <p style="margin-top: 0 !important; margin-bottom: 0px;">
+        Our dedicated cleaning crews service local neighbourhoods every week across:
+      </p>    
+    <!-- Town Badges -->
+    <div class="areas-grid">
+      <span class="area-badge">Burlington</span>
+      <span class="area-badge">Oakville</span>
+      <span class="area-badge">Waterdown</span>
+      <span class="area-badge">Milton</span>
+      <span class="area-badge">Hamilton</span>
+      <span class="area-badge">Ancaster</span>
+      <span class="area-badge">Stoney Creek</span>
+      <span class="area-badge">Dundas</span>
+    </div>
+
+    <!-- Instant Postal Code & Address Checker -->
+    <div class="area-checker-box">
+      <h3>Check Your Location</h3>
+      <p>Enter your postal code (or just the first 3 letters) to confirm instant availability:</p>
+      
+      <form id="areaCheckerForm" class="checker-input-group" onsubmit="event.preventDefault(); checkServiceArea();">
+        <input 
+          type="text" 
+          id="postalInput" 
+          placeholder="e.g. L7M 4W8 or Oakville" 
+          autocomplete="postal-code"
+          required
+        />
+        <button type="submit" class="btn btn-primary">Check Route</button>
+      </form>
+
+      <!-- Dynamic Results Container -->
+      <div id="checkerResult" class="checker-result" style="display: none;"></div>
+    </div>
+
+  </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="reviews" class="reviews-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Clients Say</h2>
+        <p>Real reviews from busy families and professionals across our community.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-body">"Cinderbelle is hands-down the most reliable cleaning company we've ever used. Coming home on cleaning day is the best feeling. Professional, thorough, and kind."</p>
+          <div class="review-author">— Sarah M., <span>Burlington (Bi-Weekly Client)</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-body">"The instant quote widget on their site was super fast, and the price was completely transparent. No weird surprises or upcharges. Highly recommend them to anyone in Oakville!"</p>
+          <div class="review-author">— David L., <span>Oakville (Monthly Clean)</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-body">"From communication to the quality of the clean, they exceeded our expectations. Our kitchen and bathrooms have never looked better."</p>
+          <div class="review-author">— Jessica T., <span>Waterdown (First-Time Clean)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simple Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+        <div class="footer-left">
+            <!-- Logo image replaces the plain text header -->
+            <a href="#" class="footer-logo-link">
+              <img src="logo-transparent.png" alt="Cinderbelle Cleaning" class="footer-logo-img">
+            </a>
+            <p>Premium residential cleaning services throughout Burlington, Oakville, and surrounding municipalities.</p>
+          </div>
+      <div class="footer-right">
+        
+        <p><strong>Contact:</strong></p>
+        <p>Email: <a href="mailto:cinderbellecleaning@gmail.com">cinderbellecleaning@gmail.com</a></p>
+        <p>Phone: <a href="tel:19054077098">(905) 407-7098</a></p>
+        <a href="careers.html">Careers</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Cinderbelle Cleaning. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <!-- Service Area Checker Logic -->
+  <script>
+    function checkServiceArea() {
+      const inputEl = document.getElementById('postalInput');
+      const resultBox = document.getElementById('checkerResult');
+      if (!inputEl || !resultBox) return;
+  
+      const rawInput = inputEl.value.trim().toUpperCase();
+      if (!rawInput) return;
+  
+      // Normalize input (strip spaces)
+      const cleaned = rawInput.replace(/\s+/g, '');
+      const prefix = cleaned.substring(0, 3);
+  
+      // Postal code FSA prefixes covering Halton & Hamilton:
+      const supportedPrefixes = [
+        'L7L', 'L7M', 'L7N', 'L7P', 'L7R', 'L7S', 'L7T', // Burlington
+        'L6H', 'L6J', 'L6K', 'L6L', 'L6M',               // Oakville
+        'L9E', 'L9T',                                     // Milton
+        'L8B', 'L0R',                                     // Waterdown / Flamborough
+        'L8E', 'L8G', 'L8H', 'L8J', 'L8K', 'L8L', 'L8M', // Hamilton & Stoney Creek
+        'L8N', 'L8P', 'L8R', 'L8S', 'L8T', 'L8V', 'L8W', 
+        'L9G', 'L9H'                                     // Ancaster & Dundas
+      ];
+  
+      // Common town names
+      const supportedTowns = [
+        'BURLINGTON', 'OAKVILLE', 'WATERDOWN', 'MILTON', 
+        'HAMILTON', 'ANCASTER', 'STONEY CREEK', 'DUNDAS', 'FLAMBOROUGH'
+      ];
+  
+      const isPostalMatch = supportedPrefixes.includes(prefix);
+      const isTownMatch = supportedTowns.some(town => rawInput.includes(town));
+  
+      resultBox.style.display = 'block';
+  
+      if (isPostalMatch || isTownMatch) {
+        resultBox.className = 'checker-result success';
+        resultBox.innerHTML = `
+          <strong>✓ You're in our service area!</strong>
+          Our teams operate weekly throughout your neighbourhood. 
+          <div style="margin-top: 10px;">
+            <a href="#quote" style="display: inline-block; background: #166534; color: #ffffff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 13px;" onclick="document.querySelector('#quote, .calc-wrapper').scrollIntoView({behavior: 'smooth'})">
+              Calculate Your Price Above ↑
+            </a>
+          </div>
+        `;
+      } else {
+        resultBox.className = 'checker-result warning';
+        resultBox.innerHTML = `
+          <strong>Outside Our Service Area</strong>
+          We currently only operate within Halton & Hamilton (Burlington, Oakville, Milton, Waterdown, Hamilton, Ancaster, Dundas, and Stoney Creek).
+          <p style="margin: 6px 0 0; font-size: 13px; color: #78350f;">
+            We do not currently offer cleaning routes in "<em>${rawInput}</em>".
+          </p>
+        `;
+      }
+    }
+  </script>
+  </body>
+</html>
