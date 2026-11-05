@@ -943,7 +943,7 @@
     .hero-text h1 {
       font-size: 32px;
     }
-  
+  }
     .container {
       padding: 0 16px;
     }
@@ -1052,7 +1052,7 @@ html {
       padding: 0.75rem 1.25rem;
       position: relative;
     }
-  
+   
     /* Hide the horizontal desktop navigation bar */
     .desktop-nav {
       display: none !important;
@@ -1080,4 +1080,3 @@ html {
       border-radius: 2px;
     }
   }
-}
