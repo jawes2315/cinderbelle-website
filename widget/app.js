@@ -91,6 +91,8 @@ const errorMsg = document.getElementById("error-msg");
 // Form Inputs
 const sqftSlider = document.getElementById("sqft-slider");
 const sqftDisplay = document.getElementById("sqft-display");
+const serviceTypeSelect = document.getElementById("service-type");
+const frequencyGroup = document.getElementById("frequency-group");
 const frequencySelect = document.getElementById("frequency");
 const bedroomsSelect = document.getElementById("bedrooms-select");
 const bathroomsSelect = document.getElementById("bathrooms-select");
@@ -147,6 +149,20 @@ if (sqftSlider) {
   sqftSlider.addEventListener("input", updateSqftDisplay);
   sqftSlider.addEventListener("change", updateSqftDisplay);
   updateSqftDisplay();
+}
+// Toggle Frequency selector based on Service Type
+function handleServiceTypeChange() {
+  if (!serviceTypeSelect || !frequencyGroup) return;
+  const sType = serviceTypeSelect.value;
+  if (sType === "deep" || sType === "move") {
+    frequencyGroup.style.display = "none";
+  } else {
+    frequencyGroup.style.display = "block";
+  }
+  notifyParentOfResize();
+}
+if (serviceTypeSelect) {
+  serviceTypeSelect.addEventListener("change", handleServiceTypeChange);
 }
 
 // Theme Application
@@ -269,61 +285,87 @@ if (submitBtn) {
 const rawSqft = Number(sqftSlider?.value) || 1500;
 const isWalkthrough = rawSqft >= 4100;
 const sqft = isWalkthrough ? 4000 : rawSqft;
+const selectedServiceType = serviceTypeSelect ? serviceTypeSelect.value : "standard";
 const freqKey = frequencySelect ? frequencySelect.value : "biweekly";
-const isRecurring = freqKey !== "one-time";
-    // Add-on Totals
-    let addonsTotal = 0;
-    const selectedAddonsList = [];
-    if (addonFridge && addonFridge.checked) {
-      addonsTotal += companyConfig.addons.fridge;
-      selectedAddonsList.push("Inside Fridge ($30)");
-    }
-    if (addonOven && addonOven.checked) {
-      addonsTotal += companyConfig.addons.oven;
-      selectedAddonsList.push("Inside Oven ($35)");
-    }
-    if (windowCount > 0) {
-      const windowCost = windowCount * companyConfig.addons.windowRate;
-      addonsTotal += windowCost;
-      selectedAddonsList.push(`Interior Windows x${windowCount} ($${windowCost})`);
-    }
+const isRecurring = (selectedServiceType === "standard") && (freqKey !== "one-time");
 
-    const minimumFloor = companyConfig.minimumVisitPrice || 100;
-    const taxRate = companyConfig.tax?.rate || 0.13;
-    let minFeeApplied = false;
+// Add-on Totals
+let addonsTotal = 0;
+const selectedAddonsList = [];
+if (addonFridge && addonFridge.checked) {
+  addonsTotal += companyConfig.addons.fridge;
+  selectedAddonsList.push("Inside Fridge ($30)");
+}
+if (addonOven && addonOven.checked) {
+  addonsTotal += companyConfig.addons.oven;
+  selectedAddonsList.push("Inside Oven ($35)");
+}
+if (windowCount > 0) {
+  const windowCost = windowCount * companyConfig.addons.windowRate;
+  addonsTotal += windowCost;
+  selectedAddonsList.push(`Interior Windows x${windowCount} ($${windowCost})`);
+}
 
-    // Calculation A: Ongoing / Standard Maintenance Clean
-    const maintenanceRate = companyConfig.ratesPerSqft[freqKey] || 0.12;
-    let ongoingBase = sqft * maintenanceRate;
-    let recurringSub = Math.max(ongoingBase, minimumFloor);
-    if (ongoingBase < minimumFloor) minFeeApplied = true;
+const minimumFloor = companyConfig.minimumVisitPrice || 120;
+const taxRate = companyConfig.tax?.rate || 0.13;
+let minFeeApplied = false;
 
-    let recurringTax = Math.round(recurringSub * taxRate * 100) / 100;
-    let recurringTotal = Math.round((recurringSub + recurringTax) * 100) / 100;
+// Rates & Subtotals based on Service Type
+let firstVisitSub = 0, firstVisitTax = 0, firstVisitTotal = 0;
+let recurringSub = 0, recurringTax = 0, recurringTotal = 0;
+let standardSubtotal = 0, standardTax = 0, standardTotal = 0;
 
-// Calculation B: First Visit ($50 above ongoing rate + Add-ons)
-let firstVisitBase = ongoingBase + companyConfig.firstVisitSurcharge + addonsTotal;
-let firstVisitSub = Math.max(firstVisitBase, minimumFloor);
-if (firstVisitBase < minimumFloor) minFeeApplied = true;
+if (selectedServiceType === "deep") {
+  // Deep Clean: $0.20/sq ft + add-ons
+  let deepBase = (sqft * companyConfig.deepCleanRate) + addonsTotal;
+  standardSubtotal = Math.max(deepBase, minimumFloor);
+  if (deepBase < minimumFloor) minFeeApplied = true;
 
-let firstVisitTax = Math.round(firstVisitSub * taxRate * 100) / 100;
-let firstVisitTotal = Math.round((firstVisitSub + firstVisitTax) * 100) / 100;
+  standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
+  standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
 
-    // Calculation C: One-Time Clean ($0.15/sq ft + Add-ons)
-    let oneTimeBase = (sqft * companyConfig.ratesPerSqft["one-time"]) + addonsTotal;
-    let standardSubtotal = Math.max(oneTimeBase, minimumFloor);
-    if (oneTimeBase < minimumFloor) minFeeApplied = true;
+} else if (selectedServiceType === "move") {
+  // Move-In / Move-Out Clean: $0.30/sq ft + add-ons
+  let moveBase = (sqft * companyConfig.moveInOutRate) + addonsTotal;
+  standardSubtotal = Math.max(moveBase, minimumFloor);
+  if (moveBase < minimumFloor) minFeeApplied = true;
 
-    let standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
-    let standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
+  standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
+  standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
 
+} else {
+  // Standard Maintenance Clean
+  const maintenanceRate = companyConfig.ratesPerSqft[freqKey] || 0.12;
+  let ongoingBase = sqft * maintenanceRate;
+  recurringSub = Math.max(ongoingBase, minimumFloor);
+  if (ongoingBase < minimumFloor) minFeeApplied = true;
+
+  recurringTax = Math.round(recurringSub * taxRate * 100) / 100;
+  recurringTotal = Math.round((recurringSub + recurringTax) * 100) / 100;
+
+  // First Visit ($50 surcharge + add-ons)
+  let firstVisitBase = ongoingBase + companyConfig.firstVisitSurcharge + addonsTotal;
+  firstVisitSub = Math.max(firstVisitBase, minimumFloor);
+  if (firstVisitBase < minimumFloor) minFeeApplied = true;
+
+  firstVisitTax = Math.round(firstVisitSub * taxRate * 100) / 100;
+  firstVisitTotal = Math.round((firstVisitSub + firstVisitTax) * 100) / 100;
+
+  // One-time standard clean
+  let oneTimeBase = (sqft * companyConfig.ratesPerSqft["one-time"]) + addonsTotal;
+  standardSubtotal = Math.max(oneTimeBase, minimumFloor);
+  if (oneTimeBase < minimumFloor) minFeeApplied = true;
+
+  standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
+  standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
+}
     // 3. Operational Household Context for Email
     const bedsText = bedroomsSelect ? bedroomsSelect.options[bedroomsSelect.selectedIndex]?.text : "N/A";
     const bathsText = bathroomsSelect ? bathroomsSelect.options[bathroomsSelect.selectedIndex]?.text : "N/A";
     const petsVal = petsCheck && petsCheck.checked ? "Yes" : "No";
     const kidsVal = kidsCheck && kidsCheck.checked ? "Yes" : "No";
-    const freqLabel = frequencySelect ? frequencySelect.options[frequencySelect.selectedIndex]?.text : "Bi-Weekly";
-
+    const serviceLabel = serviceTypeSelect ? serviceTypeSelect.options[serviceTypeSelect.selectedIndex]?.text : "Standard Clean";
+    const freqLabel = isRecurring ? (frequencySelect ? frequencySelect.options[frequencySelect.selectedIndex]?.text : "Bi-Weekly") : "One-Time Clean";
     const leadData = {
       _subject: isRecurring
         ? `New Lead: ${name} (1st: $${firstVisitTotal.toFixed(2)} | Ongoing: $${recurringTotal.toFixed(2)})`
@@ -335,6 +377,7 @@ let firstVisitTotal = Math.round((firstVisitSub + firstVisitTax) * 100) / 100;
       "Phone Number": phone || "Not provided",
       "Postal Code": postalInput ? postalInput.value.trim().toUpperCase() : "N/A",
       "Home Size": `${sqft.toLocaleString()} sq ft (${bedsText}, ${bathsText})`,
+      "Service Requested": serviceLabel,
       "Service Frequency": freqLabel,
       "Pets in Home": petsVal,
       "Kids in Home": kidsVal,

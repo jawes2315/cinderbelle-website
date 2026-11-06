@@ -48,8 +48,20 @@
     <span>4,000+ sq ft</span>
   </div>
 </div>
-<!-- Service Frequency (Controls Recurring Discounts) -->
-<div style="margin-bottom: 12px;">
+<!-- Service Type Selector -->
+<div style="margin-bottom: 20px;">
+  <label for="service-type" style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 6px;">
+    Service Type
+  </label>
+  <select id="service-type" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background-color: #fff; color: #334155; cursor: pointer;">
+    <option value="standard" selected>Standard Clean (Recurring / Maintenance)</option>
+    <option value="deep">Deep Clean & Reset ($0.20/sq ft)</option>
+    <option value="move">Move-In / Move-Out Clean ($0.30/sq ft)</option>
+  </select>
+</div>
+
+<!-- Service Frequency (Controls Recurring Discounts - Standard Only) -->
+<div id="frequency-group" style="margin-bottom: 20px;">
   <label for="frequency" style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 6px;">
     Cleaning Frequency
   </label>
@@ -225,14 +237,7 @@
       For homes 4,000 sq ft and larger, we provide customized on-site scoping to ensure exact pricing. We will call you shortly to arrange a walk-through.
     </p>
   </div>
-  <!-- Walk-through Required Notice -->
-<div id="walkthrough-card" style="display: none; background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 8px; padding: 18px; text-align: center; margin-bottom: 18px;">
-  <div style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background-color: #fae8ff; border-radius: 50%; color: #7a1fa2; font-size: 22px; margin-bottom: 10px;">📋</div>
-  <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #581c87;">In-Person Walk-through Required</h4>
-  <p style="margin: 0; font-size: 14px; color: #6b21a8; line-height: 1.5;">
-    For homes 4,000 sq ft and larger, we provide customized on-site scoping to ensure exact pricing. We will call you shortly to arrange a walk-through.
-  </p>
-</div>
+
   <!-- MODE B: Single / One-Time Total -->
   <div id="single-pricing-card">
     <div id="summary-subtotal-row" style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px; color: #475569;">
@@ -304,8 +309,8 @@
 </div> <!-- Closes #result -->
 
   <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #475569; line-height: 1.6;">
-    <li>Our team reviews your home specs and route schedule.</li>
-    <li>We will text or call you shortly to confirm your preferred arrival window.</li>
+    <li>You can give us a call to discuss availability - 905-407-7098</li>
+    <li>We will text or call as soon as possible to discuss availability</li>
     <li>No payment or deposit is required. </li>
   </ul>
 </div>
