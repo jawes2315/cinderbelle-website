@@ -73,20 +73,31 @@
   </select>
 </div>
 <!-- 2. Bedrooms & Bathrooms (Informational - $0) -->
+<!-- 2. Bedrooms & Bathrooms (Informational - $0) -->
 <div style="display: flex; gap: 12px; margin-bottom: 12px;">
   <div style="flex: 1;">
-    <label for="bathrooms-select">Bathrooms</label>
-    <select id="bathrooms-select" name="bathrooms">
+    <label for="bedrooms-select" style="display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #1e293b;">Bedrooms</label>
+    <select id="bedrooms-select" name="bedrooms" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; background-color: #fff; color: #1e293b; box-sizing: border-box; outline: none;">
+      <option value="1">1 Bed</option>
+      <option value="2">2 Beds</option>
+      <option value="3" selected>3 Beds</option>
+      <option value="4">4 Beds</option>
+      <option value="5">5+ Beds</option>
+    </select>
+  </div>
+  <div style="flex: 1;">
+    <label for="bathrooms-select" style="display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #1e293b;">Bathrooms</label>
+    <select id="bathrooms-select" name="bathrooms" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; background-color: #fff; color: #1e293b; box-sizing: border-box; outline: none;">
       <option value="1">1 Bath</option>
       <option value="1.5">1.5 Baths</option>
-      <option value="2">2 Baths</option>
+      <option value="2" selected>2 Baths</option>
       <option value="2.5">2.5 Baths</option>
       <option value="3">3 Baths</option>
       <option value="3.5">3.5 Baths</option>
       <option value="4">4 Baths</option>
     </select>
-  </div></div>
-
+  </div>
+</div>
 <!-- Household Conditions (Pricing hidden from user) -->
 <div style="margin-bottom: 20px;">
   <label style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 8px;">Household Details</label>
