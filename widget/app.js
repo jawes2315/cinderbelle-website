@@ -7,8 +7,8 @@ const companyConfig = {
   headerTitle: "Request a Free Quote",
   theme: {
     primaryColor: "#7a1fa2",
-    headerTextColor: "#e11d48",
-    headerFontSize: "26px",
+    headerTextColor: "#7a1fa2",
+    headerFontSize: "22px",
     headerFontWeight: "800"
   },
   serviceArea: {
