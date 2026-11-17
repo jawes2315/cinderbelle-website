@@ -1,42 +1,16 @@
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-const WEB3FORMS_KEY = 'fe1ff0c3-f85d-4970-93df-cd710cb36853'; // <-- Paste your actual key inside quotes
+const WEB3FORMS_KEY = 'fe1ff0c3-f85d-4970-93df-cd710cb36853';
 
 const companyConfig = {
   name: "Cinderbelle Cleaning",
   logoUrl: "",
-  headerTitle: "",
-  ctaAction: {
-    enabled: false,
-    text: "Schedule Your Cleaning Now →",
-    url: "tel:19054077098"
-  },
+  headerTitle: "Request a Free Quote",
   theme: {
     primaryColor: "#7a1fa2",
     headerTextColor: "#e11d48",
-    headerFontSize: "28px",
+    headerFontSize: "26px",
     headerFontWeight: "800"
   },
-  minimumVisitPrice: 100, // $100 minimum visit floor (pre-tax)
-
-  // Maintenance Sq Ft Rates
-  ratesPerSqft: {
-    weekly: 0.10,
-    biweekly: 0.12,
-    monthly: 0.15,
-    "one-time": 0.15
-  },
-  firstVisitSurcharge: 50, // Flat $50 extra on the first visit
-  // Specialized Clean Rates
-  deepCleanRate: 0.20,
-  moveInOutRate: 0.30,
-
-  // Add-on Rates
-  addons: {
-    fridge: 30,
-    oven: 35,
-    windowRate: 5
-  },
-
   serviceArea: {
     enabled: true,
     allowedPrefixes: [
@@ -46,12 +20,6 @@ const companyConfig = {
       "L9A", "L9B", "L9C", "L9G", "L9H", "L9K"
     ],
     errorMessage: "We do not currently service your area yet. Please contact us directly for special accommodations."
-  },
-
-  tax: {
-    enabled: true,
-    rate: 0.13,
-    label: "HST (13%)"
   }
 };
 
@@ -76,6 +44,7 @@ function formatPhoneNumber(value) {
 const step1 = document.getElementById("step-1");
 const step2 = document.getElementById("step-2");
 const resultDiv = document.getElementById("result");
+const widgetSubtitle = document.getElementById("widget-subtitle");
 
 const nextBtn = document.getElementById("next-btn");
 const backBtn = document.getElementById("back-btn");
@@ -107,12 +76,12 @@ const btnWinMinus = document.getElementById("btn-win-minus");
 const btnWinPlus = document.getElementById("btn-win-plus");
 let windowCount = 0;
 
-// Result Breakdown Elements
+// Result Summary Elements
 const resultCustomThankYou = document.getElementById("result-custom-thankyou");
+const summaryService = document.getElementById("summary-service");
 const summaryRooms = document.getElementById("summary-rooms");
 const summaryFrequency = document.getElementById("summary-frequency");
 const summaryAddons = document.getElementById("summary-addons");
-const summaryTotal = document.getElementById("summary-total");
 
 // Format Phone Input
 if (clientPhoneInput) {
@@ -140,7 +109,7 @@ function updateSqftDisplay() {
   if (!sqftSlider || !sqftDisplay) return;
   const val = Number(sqftSlider.value);
   if (val > 4000) {
-    sqftDisplay.textContent = "4,000+ sq ft (Walkthrough Required)";
+    sqftDisplay.textContent = "4,000+ sq ft";
   } else {
     sqftDisplay.textContent = `${val.toLocaleString()} sq ft`;
   }
@@ -150,6 +119,7 @@ if (sqftSlider) {
   sqftSlider.addEventListener("change", updateSqftDisplay);
   updateSqftDisplay();
 }
+
 // Toggle Frequency selector based on Service Type
 function handleServiceTypeChange() {
   if (!serviceTypeSelect || !frequencyGroup) return;
@@ -182,25 +152,12 @@ function applyTheme() {
     widgetTitle.style.display = "block";
     widgetTitle.textContent = companyConfig.headerTitle;
     widgetTitle.style.color = companyConfig.theme?.headerTextColor || brandColor;
-    widgetTitle.style.fontSize = companyConfig.theme?.headerFontSize || "24px";
-    widgetTitle.style.fontWeight = companyConfig.theme?.headerFontWeight || "700";
+    widgetTitle.style.fontSize = companyConfig.theme?.headerFontSize || "26px";
+    widgetTitle.style.fontWeight = companyConfig.theme?.headerFontWeight || "800";
   }
 
   if (nextBtn) nextBtn.style.backgroundColor = brandColor;
   if (submitBtn) submitBtn.style.backgroundColor = brandColor;
-
-  const ctaContainer = document.getElementById("summary-cta-container");
-  const ctaBtn = document.getElementById("summary-cta-btn");
-  if (ctaContainer && ctaBtn) {
-    if (companyConfig.ctaAction && companyConfig.ctaAction.enabled) {
-      if (ctaContainer) ctaContainer.style.display = "block";
-      ctaBtn.textContent = companyConfig.ctaAction.text;
-      ctaBtn.href = companyConfig.ctaAction.url || "#";
-      ctaBtn.style.backgroundColor = brandColor;
-    } else {
-      if (ctaContainer) ctaContainer.style.display = "none";
-    }
-    }
 }
 applyTheme();
 
@@ -218,11 +175,12 @@ if (backBtn) {
     step2.style.display = "none";
     step1.style.display = "block";
     if (errorMsg) errorMsg.style.display = "none";
+    if (postalError) postalError.style.display = "none";
     notifyParentOfResize();
   });
 }
 
-// Submission & Pricing Engine
+// Submission Handler (No Pricing Shown to Visitor)
 if (submitBtn) {
   submitBtn.addEventListener("click", () => {
     const name = clientNameInput?.value.trim() || "";
@@ -233,17 +191,22 @@ if (submitBtn) {
       errorMsg.style.display = "none";
       errorMsg.textContent = "";
     }
+    if (postalError) {
+      postalError.style.display = "none";
+    }
 
     // 1. Validation
     if (!name || !email) {
-      errorMsg.textContent = "Please enter your name and email before seeing the estimate.";
+      errorMsg.textContent = "Please enter your name and email address to submit your request.";
       errorMsg.style.display = "block";
+      notifyParentOfResize();
       return;
     }
 
     if (!isValidEmail(email)) {
       errorMsg.textContent = "Please enter a valid email address.";
       errorMsg.style.display = "block";
+      notifyParentOfResize();
       return;
     }
 
@@ -251,10 +214,11 @@ if (submitBtn) {
     if (digitsOnly.length > 0 && digitsOnly.length < 10) {
       errorMsg.textContent = "Please enter a valid 10-digit phone number.";
       errorMsg.style.display = "block";
+      notifyParentOfResize();
       return;
     }
 
-    // Service Area Postal Validation
+    // 2. Service Area Postal Validation
     const territoryConfig = companyConfig.serviceArea;
     if (territoryConfig && territoryConfig.enabled) {
       const rawPostal = postalInput ? postalInput.value.trim().toUpperCase().replace(/\s+/g, "") : "";
@@ -263,146 +227,64 @@ if (submitBtn) {
           postalError.textContent = "Please enter your postal code.";
           postalError.style.display = "block";
         }
+        notifyParentOfResize();
         return;
       }
 
-      const isCovered = territoryConfig.allowedPrefixes.some(prefix => rawPostal.startsWith(prefix.trim().toUpperCase()));
+      const isCovered = territoryConfig.allowedPrefixes.some(prefix =>
+        rawPostal.startsWith(prefix.trim().toUpperCase())
+      );
       if (!isCovered) {
         if (postalError) {
           postalError.textContent = territoryConfig.errorMessage;
           postalError.style.display = "block";
         }
+        notifyParentOfResize();
         return;
-      } else if (postalError) {
-        postalError.style.display = "none";
       }
     }
 
     submitBtn.disabled = true;
-    submitBtn.textContent = "Calculating your estimate...";
+    submitBtn.textContent = "Sending your request...";
 
-// 2. Pricing Calculations
-const rawSqft = Number(sqftSlider?.value) || 1500;
-const isWalkthrough = rawSqft >= 4100;
-const sqft = isWalkthrough ? 4000 : rawSqft;
-const selectedServiceType = serviceTypeSelect ? serviceTypeSelect.value : "standard";
-const freqKey = frequencySelect ? frequencySelect.value : "biweekly";
-const isRecurring = (selectedServiceType === "standard") && (freqKey !== "one-time");
+    // 3. Gather Service & Household Details for Web3Forms Email
+    const rawSqft = Number(sqftSlider?.value) || 1500;
+    const sqftLabel = rawSqft > 4000 ? "4,000+ sq ft" : `${rawSqft.toLocaleString()} sq ft`;
+    const selectedServiceType = serviceTypeSelect ? serviceTypeSelect.value : "standard";
+    const serviceLabel = serviceTypeSelect ? serviceTypeSelect.options[serviceTypeSelect.selectedIndex]?.text : "Standard Clean";
+    const freqLabel = (selectedServiceType === "deep" || selectedServiceType === "move")
+      ? "One-Time Clean"
+      : (frequencySelect ? frequencySelect.options[frequencySelect.selectedIndex]?.text : "Bi-Weekly");
 
-// Add-on Totals
-let addonsTotal = 0;
-const selectedAddonsList = [];
-if (addonFridge && addonFridge.checked) {
-  addonsTotal += companyConfig.addons.fridge;
-  selectedAddonsList.push("Inside Fridge ($30)");
-}
-if (addonOven && addonOven.checked) {
-  addonsTotal += companyConfig.addons.oven;
-  selectedAddonsList.push("Inside Oven ($35)");
-}
-if (windowCount > 0) {
-  const windowCost = windowCount * companyConfig.addons.windowRate;
-  addonsTotal += windowCost;
-  selectedAddonsList.push(`Interior Windows x${windowCount} ($${windowCost})`);
-}
-
-const minimumFloor = companyConfig.minimumVisitPrice || 120;
-const taxRate = companyConfig.tax?.rate || 0.13;
-let minFeeApplied = false;
-
-// Rates & Subtotals based on Service Type
-let firstVisitSub = 0, firstVisitTax = 0, firstVisitTotal = 0;
-let recurringSub = 0, recurringTax = 0, recurringTotal = 0;
-let standardSubtotal = 0, standardTax = 0, standardTotal = 0;
-
-if (selectedServiceType === "deep") {
-  // Deep Clean: $0.20/sq ft + add-ons
-  let deepBase = (sqft * companyConfig.deepCleanRate) + addonsTotal;
-  standardSubtotal = Math.max(deepBase, minimumFloor);
-  if (deepBase < minimumFloor) minFeeApplied = true;
-
-  standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
-  standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
-
-} else if (selectedServiceType === "move") {
-  // Move-In / Move-Out Clean: $0.30/sq ft + add-ons
-  let moveBase = (sqft * companyConfig.moveInOutRate) + addonsTotal;
-  standardSubtotal = Math.max(moveBase, minimumFloor);
-  if (moveBase < minimumFloor) minFeeApplied = true;
-
-  standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
-  standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
-
-} else {
-  // Standard Maintenance Clean
-  const maintenanceRate = companyConfig.ratesPerSqft[freqKey] || 0.12;
-  let ongoingBase = sqft * maintenanceRate;
-  recurringSub = Math.max(ongoingBase, minimumFloor);
-  if (ongoingBase < minimumFloor) minFeeApplied = true;
-
-  recurringTax = Math.round(recurringSub * taxRate * 100) / 100;
-  recurringTotal = Math.round((recurringSub + recurringTax) * 100) / 100;
-
-  // First Visit ($50 surcharge + add-ons)
-  let firstVisitBase = ongoingBase + companyConfig.firstVisitSurcharge + addonsTotal;
-  firstVisitSub = Math.max(firstVisitBase, minimumFloor);
-  if (firstVisitBase < minimumFloor) minFeeApplied = true;
-
-  firstVisitTax = Math.round(firstVisitSub * taxRate * 100) / 100;
-  firstVisitTotal = Math.round((firstVisitSub + firstVisitTax) * 100) / 100;
-
-  // One-time standard clean
-  let oneTimeBase = (sqft * companyConfig.ratesPerSqft["one-time"]) + addonsTotal;
-  standardSubtotal = Math.max(oneTimeBase, minimumFloor);
-  if (oneTimeBase < minimumFloor) minFeeApplied = true;
-
-  standardTax = Math.round(standardSubtotal * taxRate * 100) / 100;
-  standardTotal = Math.round((standardSubtotal + standardTax) * 100) / 100;
-}
-    // 3. Operational Household Context for Email
     const bedsText = bedroomsSelect ? bedroomsSelect.options[bedroomsSelect.selectedIndex]?.text : "N/A";
     const bathsText = bathroomsSelect ? bathroomsSelect.options[bathroomsSelect.selectedIndex]?.text : "N/A";
     const petsVal = petsCheck && petsCheck.checked ? "Yes" : "No";
     const kidsVal = kidsCheck && kidsCheck.checked ? "Yes" : "No";
-    const serviceLabel = serviceTypeSelect ? serviceTypeSelect.options[serviceTypeSelect.selectedIndex]?.text : "Standard Clean";
-    const freqLabel = isRecurring ? (frequencySelect ? frequencySelect.options[frequencySelect.selectedIndex]?.text : "Bi-Weekly") : "One-Time Clean";
-    const leadData = {
-      _subject: isRecurring
-        ? `New Lead: ${name} (1st: $${firstVisitTotal.toFixed(2)} | Ongoing: $${recurringTotal.toFixed(2)})`
-        : `New One-Time Lead: ${name} ($${standardTotal.toFixed(2)})`,
-      _replyto: email,
 
+    const selectedAddonsList = [];
+    if (addonFridge && addonFridge.checked) selectedAddonsList.push("Inside Fridge");
+    if (addonOven && addonOven.checked) selectedAddonsList.push("Inside Oven");
+    if (windowCount > 0) selectedAddonsList.push(`Interior Windows (x${windowCount})`);
+
+    const addonsSummaryText = selectedAddonsList.length > 0 ? selectedAddonsList.join(", ") : "None";
+
+    const leadData = {
+      _subject: `New Quote Request: ${name} (${serviceLabel})`,
+      _replyto: email,
       "Customer Name": name,
       "Email Address": email,
       "Phone Number": phone || "Not provided",
       "Postal Code": postalInput ? postalInput.value.trim().toUpperCase() : "N/A",
-      "Home Size": `${sqft.toLocaleString()} sq ft (${bedsText}, ${bathsText})`,
       "Service Requested": serviceLabel,
-      "Service Frequency": freqLabel,
+      "Cleaning Frequency": freqLabel,
+      "Home Size": `${sqftLabel} (${bedsText}, ${bathsText})`,
       "Pets in Home": petsVal,
-      "Kids in Home": kidsVal,
-      "Selected Add-ons": selectedAddonsList.length > 0 ? selectedAddonsList.join(", ") : "None",
-
-      ...(isRecurring
-        ? {
-            "1st Visit CleanSubtotal": `$${firstVisitSub.toFixed(2)}`,
-            "1st Visit HST (13%)": `$${firstVisitTax.toFixed(2)}`,
-            "1st Visit Total": `$${firstVisitTotal.toFixed(2)}`,
-            "Ongoing Maintenance Subtotal": `$${recurringSub.toFixed(2)}`,
-            "Ongoing Maintenance HST (13%)": `$${recurringTax.toFixed(2)}`,
-            "Ongoing Maintenance Total": `$${recurringTotal.toFixed(2)}`
-          }
-        : {
-            "Subtotal": `$${standardSubtotal.toFixed(2)}`,
-            "HST (13%)": `$${standardTax.toFixed(2)}`,
-            "Grand Total": `$${standardTotal.toFixed(2)}`
-          }),
-
-      "Minimum Fee Floor Triggered": minFeeApplied ? "Yes ($100 floor enforced)" : "No",
+      "Children in Home": kidsVal,
+      "Selected Add-ons": addonsSummaryText,
       "Submitted At": new Date().toLocaleString()
     };
 
-    // 4. Send Lead to WEB3FORMS
+    // 4. Send Lead to Web3Forms
     fetch(WEB3FORMS_ENDPOINT, {
       method: "POST",
       headers: {
@@ -412,91 +294,34 @@ if (selectedServiceType === "deep") {
       body: JSON.stringify({ access_key: WEB3FORMS_KEY, ...leadData })
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Formspree rejected submission");
+        if (!res.ok) throw new Error("Submission failed");
         return res.json();
       })
       .then(() => {
-        // Hide Step 2 & Reveal Result Card
+        // Hide Step 2 & Header Subtitle, Reveal Step 3 Thank You
         step2.style.display = "none";
+        if (widgetSubtitle) widgetSubtitle.style.display = "none";
         resultDiv.style.display = "block";
 
         if (resultCustomThankYou) {
-          resultCustomThankYou.innerHTML = `Thanks, <strong>${name}</strong>! Here is your customized instant estimate. Our team will follow up shortly to confirm availability.`;
+          resultCustomThankYou.innerHTML = `Thanks, <strong>${name}</strong>! We've received your cleaning details and someone from our team will contact you shortly.`;
         }
-
-        if (summaryRooms) summaryRooms.textContent = `${sqft.toLocaleString()} sq ft (${bedsText}, ${bathsText})`;
+        if (summaryService) summaryService.textContent = serviceLabel;
+        if (summaryRooms) summaryRooms.textContent = `${sqftLabel} (${bedsText}, ${bathsText})`;
         if (summaryFrequency) summaryFrequency.textContent = freqLabel;
-        if (summaryAddons) {
-          summaryAddons.textContent = selectedAddonsList.length > 0 ? selectedAddonsList.join(", ") : "None";
-        }
+        if (summaryAddons) summaryAddons.textContent = addonsSummaryText;
 
-        const singleCard = document.getElementById("single-pricing-card");
-        const recurringCard = document.getElementById("recurring-pricing-card");
-        const taxLabelText = companyConfig.tax?.label || "HST (13%):";
-
-        const walkthroughCard = document.getElementById("walkthrough-card");
-        const ctaContainer = document.getElementById("summary-cta-container");
-        const minNoteEl = document.getElementById("minimum-fee-note");
-
-        if (isWalkthrough) {
-          // 1. Hide pricing cards and booking CTA
-          if (singleCard) singleCard.style.display = "none";
-          if (recurringCard) recurringCard.style.display = "none";
-          if (minNoteEl) minNoteEl.style.display = "none";
-          if (ctaContainer) ctaContainer.style.display = "none";
-
-          // 2. Show Walk-through message
-          if (walkthroughCard) walkthroughCard.style.display = "block";
-
-          // 3. Update confirmation headline & home summary
-          if (resultCustomThankYou) {
-            resultCustomThankYou.innerHTML = `Thanks, <strong>${name}</strong>! We've received your home details. Our team will call you shortly to arrange your on-site walk-through.`;
-          }
-          if (summaryRooms) {
-            summaryRooms.textContent = `4,000+ sq ft (${bedsText}, ${bathsText})`;
-          }
-        } else {
-          // Standard estimate view (under 4,100 sq ft)
-          if (walkthroughCard) walkthroughCard.style.display = "none";
-          if (ctaContainer) ctaContainer.style.display = "none";
-
-          if (isRecurring && recurringCard) {
-            if (singleCard) singleCard.style.display = "none";
-            recurringCard.style.display = "block";
-
-            document.getElementById("first-subtotal-display").textContent = `$${firstVisitSub.toFixed(2)}`;
-            document.getElementById("first-tax-label").textContent = taxLabelText;
-            document.getElementById("first-tax-display").textContent = `$${firstVisitTax.toFixed(2)}`;
-            document.getElementById("first-total-display").textContent = `$${firstVisitTotal.toFixed(2)}`;
-
-            document.getElementById("recurring-subtotal-display").textContent = `$${recurringSub.toFixed(2)}`;
-            document.getElementById("recurring-tax-label").textContent = taxLabelText;
-            document.getElementById("recurring-tax-display").textContent = `$${recurringTax.toFixed(2)}`;
-            document.getElementById("recurring-total-display").textContent = `$${recurringTotal.toFixed(2)}`;
-          } else {
-            if (recurringCard) recurringCard.style.display = "none";
-            if (singleCard) singleCard.style.display = "block";
-
-            document.getElementById("summary-subtotal").textContent = `$${standardSubtotal.toFixed(2)}`;
-            document.getElementById("summary-tax-label").textContent = taxLabelText;
-            document.getElementById("summary-tax").textContent = `$${standardTax.toFixed(2)}`;
-            summaryTotal.textContent = `$${standardTotal.toFixed(2)}`;
-          }
-
-          if (minNoteEl) {
-            minNoteEl.style.display = minFeeApplied ? "block" : "none";
-          }
-        }
         notifyParentOfResize();
       })
       .catch((err) => {
         console.error("Submission failed:", err);
         if (errorMsg) {
-          errorMsg.textContent = "There was an error generating your quote. Please try again.";
+          errorMsg.textContent = "There was an error sending your request. Please try again or call us at 905-407-7098.";
           errorMsg.style.display = "block";
         }
         submitBtn.disabled = false;
-        submitBtn.textContent = "Get Your Estimate Now";
+        submitBtn.textContent = "Request My Free Quote";
+        notifyParentOfResize();
       });
   });
 }
