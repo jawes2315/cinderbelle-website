@@ -9,25 +9,26 @@
       margin: 0;
       padding: 0;
       overflow-y: hidden;
+      background: transparent;
     }
   </style>
 </head>
 <body>
-  <div style="max-width: 420px; margin: 12px auto; font-family: sans-serif; padding: 16px 20px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-    <div id="widget-header" style="text-align: center; margin-bottom: 12px;">
+  <div style="max-width: 420px; margin: 0 auto; font-family: sans-serif; padding: 8px 16px 14px; background: #ffffff;">
+    <div id="widget-header" style="text-align: center; margin-bottom: 10px;">
       <img id="company-logo" src="" alt="Company Logo" style="display: none; max-height: 55px; max-width: 200px; margin: 0 auto; object-fit: contain;">
-      <h2 id="widget-title" style="margin: 0; font-size: 24px; color: #0f172a;">Request a Free Quote</h2>
-      <p id="widget-subtitle" style="margin: 4px 0 0; font-size: 13px; color: #64748b;">Tell us about your home and we'll follow up shortly</p>
+      <h2 id="widget-title" style="margin: 0; font-size: 22px; color: #0f172a;">Request a Free Quote</h2>
+      <p id="widget-subtitle" style="margin: 2px 0 0; font-size: 13px; color: #64748b;">Tell us about your home and we'll follow up shortly</p>
     </div>
 
     <!-- STEP 1: SERVICE NEEDS -->
     <div id="step-1">
 
       <!-- 1. Square Footage Slider -->
-      <div class="form-group" style="margin-bottom: 14px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div class="form-group" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
           <label for="sqft-slider" style="font-weight: 600; font-size: 14px; color: #334155;">Approximate Home Size</label>
-          <span id="sqft-display" style="font-weight: 700; font-size: 16px; color: #7a1fa2;">1,500 sq ft</span>
+          <span id="sqft-display" style="font-weight: 700; font-size: 15px; color: #7a1fa2;">1,500 sq ft</span>
         </div>
         <input 
           type="range" 
@@ -38,7 +39,7 @@
           value="1500" 
           style="width: 100%; accent-color: #7a1fa2; cursor: pointer;"
         />
-        <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-top: 4px;">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-top: 2px;">
           <span>500 sq ft</span>
           <span>2,200 sq ft</span>
           <span>4,000+ sq ft</span>
@@ -46,11 +47,11 @@
       </div>
 
       <!-- 2. Service Type Selector -->
-      <div style="margin-bottom: 16px;">
-        <label for="service-type" style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 6px;">
+      <div style="margin-bottom: 10px;">
+        <label for="service-type" style="font-weight: 600; font-size: 13px; color: #334155; display: block; margin-bottom: 4px;">
           Service Type
         </label>
-        <select id="service-type" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background-color: #fff; color: #334155; cursor: pointer;">
+        <select id="service-type" style="width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background-color: #fff; color: #334155; cursor: pointer;">
           <option value="standard" selected>Standard Clean (Recurring / Maintenance)</option>
           <option value="deep">Deep Clean &amp; Reset</option>
           <option value="move">Move-In / Move-Out Clean</option>
@@ -58,11 +59,11 @@
       </div>
 
       <!-- 3. Service Frequency (Standard Only) -->
-      <div id="frequency-group" style="margin-bottom: 16px;">
-        <label for="frequency" style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 6px;">
+      <div id="frequency-group" style="margin-bottom: 10px;">
+        <label for="frequency" style="font-weight: 600; font-size: 13px; color: #334155; display: block; margin-bottom: 4px;">
           Cleaning Frequency
         </label>
-        <select id="frequency" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background-color: #fff; color: #334155; cursor: pointer;">
+        <select id="frequency" style="width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background-color: #fff; color: #334155; cursor: pointer;">
           <option value="weekly">Weekly</option>
           <option value="biweekly" selected>Bi-Weekly</option>
           <option value="monthly">Monthly</option>
@@ -71,10 +72,10 @@
       </div>
 
       <!-- 4. Bedrooms & Bathrooms -->
-      <div style="display: flex; gap: 12px; margin-bottom: 14px;">
+      <div style="display: flex; gap: 10px; margin-bottom: 10px;">
         <div style="flex: 1;">
-          <label for="bedrooms-select" style="display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #1e293b;">Bedrooms</label>
-          <select id="bedrooms-select" name="bedrooms" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; background-color: #fff; color: #1e293b; box-sizing: border-box; outline: none;">
+          <label for="bedrooms-select" style="display: block; margin-bottom: 4px; font-weight: 600; font-size: 13px; color: #1e293b;">Bedrooms</label>
+          <select id="bedrooms-select" name="bedrooms" style="width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background-color: #fff; color: #1e293b; box-sizing: border-box; outline: none;">
             <option value="1">1 Bed</option>
             <option value="2">2 Beds</option>
             <option value="3" selected>3 Beds</option>
@@ -83,8 +84,8 @@
           </select>
         </div>
         <div style="flex: 1;">
-          <label for="bathrooms-select" style="display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #1e293b;">Bathrooms</label>
-          <select id="bathrooms-select" name="bathrooms" style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; background-color: #fff; color: #1e293b; box-sizing: border-box; outline: none;">
+          <label for="bathrooms-select" style="display: block; margin-bottom: 4px; font-weight: 600; font-size: 13px; color: #1e293b;">Bathrooms</label>
+          <select id="bathrooms-select" name="bathrooms" style="width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background-color: #fff; color: #1e293b; box-sizing: border-box; outline: none;">
             <option value="1">1 Bath</option>
             <option value="1.5">1.5 Baths</option>
             <option value="2" selected>2 Baths</option>
@@ -97,18 +98,18 @@
       </div>
 
       <!-- 5. Household Details -->
-      <div style="margin-bottom: 16px;">
-        <label style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 8px;">Household Details</label>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #475569; cursor: pointer;">
+      <div style="margin-bottom: 10px;">
+        <label style="font-weight: 600; font-size: 13px; color: #334155; display: block; margin-bottom: 6px;">Household Details</label>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; cursor: pointer;">
             <input type="checkbox" id="condition-pets" style="accent-color: #7a1fa2;" />
             <span>Pets in the home</span>
           </label>
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #475569; cursor: pointer;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; cursor: pointer;">
             <input type="checkbox" id="condition-kids" style="accent-color: #7a1fa2;" />
             <span>Children in the home</span>
           </label>
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #475569; cursor: pointer;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; cursor: pointer;">
             <input type="checkbox" id="condition-basement" style="accent-color: #7a1fa2;" />
             <span>Basement included in square footage</span>
           </label>
@@ -116,34 +117,34 @@
       </div>
 
       <!-- 6. Optional Add-ons (No prices shown) -->
-      <div style="margin-bottom: 14px;">
-        <label style="font-weight: 600; font-size: 14px; color: #334155; display: block; margin-bottom: 10px;">
+      <div style="margin-bottom: 12px;">
+        <label style="font-weight: 600; font-size: 13px; color: #334155; display: block; margin-bottom: 6px;">
           Optional Add-ons
         </label>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
 
           <!-- Inside Fridge -->
-          <label style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">
+          <label style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">
             <input type="checkbox" id="addon-fridge" style="accent-color: #7a1fa2; width: 16px; height: 16px; cursor: pointer;" />
-            <span style="font-size: 14px; font-weight: 500; color: #1e293b;">Inside Fridge</span>
+            <span style="font-size: 13px; font-weight: 500; color: #1e293b;">Inside Fridge</span>
           </label>
 
           <!-- Inside Oven -->
-          <label style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">
+          <label style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">
             <input type="checkbox" id="addon-oven" style="accent-color: #7a1fa2; width: 16px; height: 16px; cursor: pointer;" />
-            <span style="font-size: 14px; font-weight: 500; color: #1e293b;">Inside Oven</span>
+            <span style="font-size: 13px; font-weight: 500; color: #1e293b;">Inside Oven</span>
           </label>
 
           <!-- Interior Windows Stepper -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
             <div>
-              <div style="font-size: 14px; font-weight: 500; color: #1e293b;">Interior Windows</div>
-              <div style="font-size: 12px; color: #64748b; margin-top: 1px;">Select number of window panes</div>
+              <div style="font-size: 13px; font-weight: 500; color: #1e293b;">Interior Windows</div>
+              <div style="font-size: 11px; color: #64748b;">Select number of window panes</div>
             </div>
             <div style="display: flex; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden;">
-              <button type="button" id="btn-win-minus" style="width: 32px; height: 32px; border: none; background: transparent; color: #475569; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">−</button>
-              <span id="window-count-display" style="min-width: 28px; text-align: center; font-weight: 700; font-size: 14px; color: #0f172a;">0</span>
-              <button type="button" id="btn-win-plus" style="width: 32px; height: 32px; border: none; background: transparent; color: #475569; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
+              <button type="button" id="btn-win-minus" style="width: 30px; height: 30px; border: none; background: transparent; color: #475569; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">−</button>
+              <span id="window-count-display" style="min-width: 26px; text-align: center; font-weight: 700; font-size: 13px; color: #0f172a;">0</span>
+              <button type="button" id="btn-win-plus" style="width: 30px; height: 30px; border: none; background: transparent; color: #475569; font-weight: 700; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
             </div>
           </div>
 
@@ -151,11 +152,11 @@
       </div>
 
       <!-- Next Step Button -->
-      <div style="margin-top: 16px;">
+      <div>
         <button 
           type="button" 
           id="next-btn" 
-          style="width: 100%; padding: 12px; background-color: #7a1fa2; color: #ffffff; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;"
+          style="width: 100%; padding: 11px; background-color: #7a1fa2; color: #ffffff; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer;"
         >
           Next Step &rarr;
         </button>
@@ -165,68 +166,68 @@
 
     <!-- STEP 2: CONTACT INFORMATION -->
     <div id="step-2" style="display: none;">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-        <button type="button" id="back-btn" style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 12px; color: #475569; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <button type="button" id="back-btn" style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 5px 10px; color: #475569; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
           &larr; Back
         </button>
-        <span style="font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Step 2 of 2</span>
+        <span style="font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Step 2 of 2</span>
       </div>
 
-      <p style="margin: 0 0 16px 0; color: #475569; font-size: 14px; line-height: 1.4;">
+      <p style="margin: 0 0 12px 0; color: #475569; font-size: 13px; line-height: 1.4;">
         Where should we reach you with your personalized quote and availability?
       </p>
 
       <label for="client-name" style="font-size: 13px; font-weight: 600; color: #334155;">Full Name: <span style="color: #dc2626;">*</span></label><br>
-      <input type="text" id="client-name" placeholder="Jane Doe" required style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+      <input type="text" id="client-name" placeholder="Jane Doe" required style="width: 100%; box-sizing: border-box; padding: 8px 10px; margin: 4px 0 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
 
       <label for="client-email" style="font-size: 13px; font-weight: 600; color: #334155;">Email Address: <span style="color: #dc2626;">*</span></label><br>
-      <input type="email" id="client-email" placeholder="jane@example.com" required style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+      <input type="email" id="client-email" placeholder="jane@example.com" required style="width: 100%; box-sizing: border-box; padding: 8px 10px; margin: 4px 0 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
 
       <label for="client-phone" style="font-size: 13px; font-weight: 600; color: #334155;">Phone Number: <span style="color: #dc2626;">*</span></label><br>
-      <input type="tel" id="client-phone" placeholder="(905) 555-0123" required style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+      <input type="tel" id="client-phone" placeholder="(905) 555-0123" required style="width: 100%; box-sizing: border-box; padding: 8px 10px; margin: 4px 0 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
 
-      <div style="margin-bottom: 16px;">
-        <label for="lead-postal" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">Postal Code: <span style="color: #dc2626;">*</span></label>
-        <input type="text" id="lead-postal" placeholder="e.g. L7L 1A1" maxlength="7" required style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+      <div style="margin-bottom: 12px;">
+        <label for="lead-postal" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px;">Postal Code: <span style="color: #dc2626;">*</span></label>
+        <input type="text" id="lead-postal" placeholder="e.g. L7L 1A1" maxlength="7" required style="width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
         <span id="postal-error" style="display: none; color: #ef4444; font-size: 12px; margin-top: 4px;"></span>
       </div>
 
       <!-- Referral Callout Card (Option A) -->
-      <div style="margin-bottom: 16px; padding: 12px 14px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px;">
-        <label for="client-referral" style="display: block; font-size: 13px; font-weight: 700; color: #7a1fa2; margin-bottom: 4px;">
+      <div style="margin-bottom: 12px; padding: 10px 12px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px;">
+        <label for="client-referral" style="display: block; font-size: 13px; font-weight: 700; color: #7a1fa2; margin-bottom: 2px;">
           🎁 Have a Referral? Get 10% Off Your First Clean!
         </label>
-        <p style="margin: 0 0 8px 0; font-size: 12px; color: #475569; line-height: 1.4;">
+        <p style="margin: 0 0 6px 0; font-size: 12px; color: #475569; line-height: 1.35;">
           Let us know who referred you to claim 10% off your first cleaning service.
         </p>
-        <input type="text" id="client-referral" placeholder="Friend or neighbour's name (optional)" style="width: 100%; box-sizing: border-box; padding: 9px 10px; border: 1px solid #d8b4fe; border-radius: 6px; font-size: 13px; background: #ffffff;">
+        <input type="text" id="client-referral" placeholder="Friend or neighbour's name (optional)" style="width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #d8b4fe; border-radius: 6px; font-size: 13px; background: #ffffff;">
       </div>
 
-      <p id="error-msg" style="color: #dc2626; font-size: 13px; margin: 0 0 12px; display: none; font-weight: bold;"></p>
+      <p id="error-msg" style="color: #dc2626; font-size: 13px; margin: 0 0 10px; display: none; font-weight: bold;"></p>
 
-      <button id="submit-btn" type="button" style="width: 100%; padding: 12px; background-color: #7a1fa2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">
+      <button id="submit-btn" type="button" style="width: 100%; padding: 11px; background-color: #7a1fa2; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer;">
         Request My Free Quote
       </button>
 
-      <div style="margin-top: 16px; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center;">
-        <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5;">
+      <div style="margin-top: 10px; padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center;">
+        <p style="font-size: 11px; color: #64748b; margin: 0; line-height: 1.4;">
           🔒 <strong>No Spam Guarantee:</strong> We only use your contact details to prepare your quote and check scheduling availability.
         </p>
       </div>
     </div> <!-- Closes #step-2 -->
 
     <!-- STEP 3: THANK YOU & CONFIRMATION (No Prices Shown) -->
-    <div id="result" style="display: none; margin-top: 8px; padding: 20px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
-      <div style="text-align: center; margin-bottom: 16px;">
-        <div style="display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; background-color: #ecfdf5; border-radius: 50%; color: #059669; font-size: 24px; font-weight: bold; margin-bottom: 10px;">✓</div>
-        <h3 style="margin: 0; font-size: 20px; color: #0f172a;">Thank You!</h3>
-        <p id="result-custom-thankyou" style="margin: 8px 0 0; font-size: 14px; color: #475569; line-height: 1.5;">
+    <div id="result" style="display: none; margin-top: 4px; padding: 16px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+      <div style="text-align: center; margin-bottom: 12px;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; background-color: #ecfdf5; border-radius: 50%; color: #059669; font-size: 22px; font-weight: bold; margin-bottom: 8px;">✓</div>
+        <h3 style="margin: 0; font-size: 19px; color: #0f172a;">Thank You!</h3>
+        <p id="result-custom-thankyou" style="margin: 6px 0 0; font-size: 13px; color: #475569; line-height: 1.4;">
           We've received your cleaning details. Someone from our team will contact you shortly!
         </p>
       </div>
 
       <!-- Request Summary -->
-      <div style="border-top: 1px dashed #cbd5e1; border-bottom: 1px dashed #cbd5e1; padding: 12px 0; margin-bottom: 16px; font-size: 14px; color: #334155; line-height: 1.7;">
+      <div style="border-top: 1px dashed #cbd5e1; border-bottom: 1px dashed #cbd5e1; padding: 10px 0; margin-bottom: 12px; font-size: 13px; color: #334155; line-height: 1.6;">
         <div style="display: flex; justify-content: space-between;">
           <span>Service:</span>
           <strong id="summary-service" style="text-align: right;">-</strong>
@@ -245,11 +246,11 @@
         </div>
       </div>
 
-      <div style="padding: 14px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px; text-align: left;">
-        <div style="font-weight: 700; font-size: 13px; color: #7a1fa2; margin-bottom: 6px;">
+      <div style="padding: 12px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px; text-align: left;">
+        <div style="font-weight: 700; font-size: 13px; color: #7a1fa2; margin-bottom: 4px;">
           📋 What Happens Next?
         </div>
-        <ul style="margin: 0; padding-left: 18px; font-size: 13px; color: #475569; line-height: 1.6;">
+        <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #475569; line-height: 1.5;">
           <li>Our team will review your home details and reach out shortly by phone or email.</li>
           <li>Need immediate assistance? Call or text us anytime at <strong>905-407-7098</strong>.</li>
         </ul>

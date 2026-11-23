@@ -88,16 +88,18 @@
 </div> <!-- This closes .hero-content (Left Column) -->
 
 <!-- Live Interactive Widget Embed (Right Column) -->
-<div class="hero-calculator" id="calculator">        <div class="calc-wrapper">
-          <div class="calc-header-badge">Free Quote Request</div>
-          <iframe 
-          src="./widget/index.html?v=2"
-                      title="Cinderbelle Free Quote Calculator"
-            loading="lazy"
-            
-          ></iframe>
-        </div>
-      </div>
+<div class="hero-calculator" id="calculator">
+  <div class="calc-wrapper">
+    <iframe 
+      id="quote-widget-iframe"
+      src="./widget/index.html?v=3"
+      title="Cinderbelle Free Quote Calculator"
+      loading="lazy"
+      scrolling="no"
+      style="width: 100%; border: none; min-height: 615px; display: block;"
+    ></iframe>
+  </div>
+</div>
     </div>
   </section>
 
@@ -356,5 +358,15 @@
     </div>
   </div>
 </div>
+<script>
+  window.addEventListener("message", function (event) {
+    if (event.data && event.data.type === "RESIZE_CALCULATOR_IFRAME" && event.data.height) {
+      const iframe = document.getElementById("quote-widget-iframe");
+      if (iframe) {
+        iframe.style.height = (event.data.height + 10) + "px";
+      }
+    }
+  });
+</script>
   </body>
 </html>
