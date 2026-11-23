@@ -13,12 +13,52 @@ const companyConfig = {
   },
   serviceArea: {
     enabled: true,
-    allowedPrefixes: [
-      "L7L", "L7M", "L7N", "L7P", "L7R", "L7T", "L7S",
-      "L6H", "L6J", "L6K", "L6L", "L6M",
-      "L8E", "L8G", "L8H", "L8K", "L8L", "L8M", "L8N", "L8P", "L8R", "L8S", "L8T", "L8V", "L8W",
-      "L9A", "L9B", "L9C", "L9G", "L9H", "L9K"
-    ],
+    prefixToCity: {
+      // Burlington
+      "L7L": "Burlington",
+      "L7M": "Burlington",
+      "L7N": "Burlington",
+      "L7P": "Burlington",
+      "L7R": "Burlington",
+      "L7S": "Burlington",
+      "L7T": "Burlington",
+      // Oakville
+      "L6H": "Oakville",
+      "L6J": "Oakville",
+      "L6K": "Oakville",
+      "L6L": "Oakville",
+      "L6M": "Oakville",
+      // Milton
+      "L9E": "Milton",
+      "L9T": "Milton",
+      // Waterdown
+      "L0R": "Waterdown",
+      "L8B": "Waterdown",
+      // Stoney Creek
+      "L8E": "Stoney Creek",
+      "L8G": "Stoney Creek",
+      // Hamilton
+      "L8H": "Hamilton",
+      "L8J": "Hamilton",
+      "L8K": "Hamilton",
+      "L8L": "Hamilton",
+      "L8M": "Hamilton",
+      "L8N": "Hamilton",
+      "L8P": "Hamilton",
+      "L8R": "Hamilton",
+      "L8S": "Hamilton",
+      "L8T": "Hamilton",
+      "L8V": "Hamilton",
+      "L8W": "Hamilton",
+      "L9A": "Hamilton",
+      "L9B": "Hamilton",
+      "L9C": "Hamilton",
+      // Ancaster
+      "L9G": "Ancaster",
+      "L9K": "Ancaster",
+      // Dundas
+      "L9H": "Dundas"
+    },
     errorMessage: "We do not currently service your area yet. Please contact us directly for special accommodations."
   }
 };
@@ -40,6 +80,21 @@ function formatPhoneNumber(value) {
   return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
 }
 
+// Helper: Canadian Postal Code Formatting (A1A 1A1) & Validation
+function formatPostalCode(value) {
+  if (!value) return "";
+  const clean = value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if (clean.length > 3) {
+    return `${clean.slice(0, 3)} ${clean.slice(3, 6)}`;
+  }
+  return clean;
+}
+
+function isValidCanadianPostal(postal) {
+  const clean = postal.toUpperCase().replace(/\s+/g, "");
+  return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\d[ABCEGHJ-NPRSTV-Z]\d$/.test(clean);
+}
+
 // Containers & Interactive Elements
 const step1 = document.getElementById("step-1");
 const step2 = document.getElementById("step-2");
@@ -54,6 +109,7 @@ const clientNameInput = document.getElementById("client-name");
 const clientEmailInput = document.getElementById("client-email");
 const clientPhoneInput = document.getElementById("client-phone");
 const postalInput = document.getElementById("lead-postal");
+const clientReferralInput = document.getElementById("client-referral");
 const postalError = document.getElementById("postal-error");
 const errorMsg = document.getElementById("error-msg");
 
@@ -67,6 +123,7 @@ const bedroomsSelect = document.getElementById("bedrooms-select");
 const bathroomsSelect = document.getElementById("bathrooms-select");
 const petsCheck = document.getElementById("condition-pets");
 const kidsCheck = document.getElementById("condition-kids");
+const basementCheck = document.getElementById("condition-basement");
 
 // Add-on Inputs
 const addonFridge = document.getElementById("addon-fridge");
@@ -87,6 +144,13 @@ const summaryAddons = document.getElementById("summary-addons");
 if (clientPhoneInput) {
   clientPhoneInput.addEventListener("input", (e) => {
     e.target.value = formatPhoneNumber(e.target.value);
+  });
+}
+
+// Format Postal Input
+if (postalInput) {
+  postalInput.addEventListener("input", (e) => {
+    e.target.value = formatPostalCode(e.target.value);
   });
 }
 
@@ -180,12 +244,15 @@ if (backBtn) {
   });
 }
 
-// Submission Handler (No Pricing Shown to Visitor)
+// Submission Handler (Strict Validation + Auto City Detection)
 if (submitBtn) {
   submitBtn.addEventListener("click", () => {
     const name = clientNameInput?.value.trim() || "";
     const email = clientEmailInput?.value.trim() || "";
     const phone = clientPhoneInput?.value.trim() || "";
+    const rawPostal = postalInput ? postalInput.value.trim().toUpperCase().replace(/\s+/g, "") : "";
+    const formattedPostal = formatPostalCode(rawPostal);
+    const referral = clientReferralInput?.value.trim() || "";
 
     if (errorMsg) {
       errorMsg.style.display = "none";
@@ -193,55 +260,62 @@ if (submitBtn) {
     }
     if (postalError) {
       postalError.style.display = "none";
+      postalError.textContent = "";
     }
 
-    // 1. Validation
-    if (!name || !email) {
-      errorMsg.textContent = "Please enter your name and email address to submit your request.";
+    // 1. Required Fields & Format Validation
+    if (!name) {
+      errorMsg.textContent = "Please enter your full name.";
       errorMsg.style.display = "block";
+      clientNameInput?.focus();
       notifyParentOfResize();
       return;
     }
 
-    if (!isValidEmail(email)) {
+    if (!email || !isValidEmail(email)) {
       errorMsg.textContent = "Please enter a valid email address.";
       errorMsg.style.display = "block";
+      clientEmailInput?.focus();
       notifyParentOfResize();
       return;
     }
 
     const digitsOnly = phone.replace(/[^\d]/g, "");
-    if (digitsOnly.length > 0 && digitsOnly.length < 10) {
-      errorMsg.textContent = "Please enter a valid 10-digit phone number.";
+    if (digitsOnly.length < 10) {
+      errorMsg.textContent = "Please enter a complete 10-digit phone number.";
       errorMsg.style.display = "block";
+      clientPhoneInput?.focus();
       notifyParentOfResize();
       return;
     }
 
-    // 2. Service Area Postal Validation
+    if (!rawPostal || !isValidCanadianPostal(rawPostal)) {
+      if (postalError) {
+        postalError.textContent = "Please enter a complete 6-character postal code (e.g., L7L 1A1).";
+        postalError.style.display = "block";
+      }
+      postalInput?.focus();
+      notifyParentOfResize();
+      return;
+    }
+
+    // 2. Service Area Territory Validation & Automatic City Detection
+    let detectedCity = "Unknown";
     const territoryConfig = companyConfig.serviceArea;
     if (territoryConfig && territoryConfig.enabled) {
-      const rawPostal = postalInput ? postalInput.value.trim().toUpperCase().replace(/\s+/g, "") : "";
-      if (!rawPostal) {
-        if (postalError) {
-          postalError.textContent = "Please enter your postal code.";
-          postalError.style.display = "block";
-        }
-        notifyParentOfResize();
-        return;
-      }
+      const fsaPrefix = rawPostal.slice(0, 3);
+      const matchedCity = territoryConfig.prefixToCity[fsaPrefix];
 
-      const isCovered = territoryConfig.allowedPrefixes.some(prefix =>
-        rawPostal.startsWith(prefix.trim().toUpperCase())
-      );
-      if (!isCovered) {
+      if (!matchedCity) {
         if (postalError) {
           postalError.textContent = territoryConfig.errorMessage;
           postalError.style.display = "block";
         }
+        postalInput?.focus();
         notifyParentOfResize();
         return;
       }
+      detectedCity = matchedCity;
     }
 
     submitBtn.disabled = true;
@@ -260,6 +334,7 @@ if (submitBtn) {
     const bathsText = bathroomsSelect ? bathroomsSelect.options[bathroomsSelect.selectedIndex]?.text : "N/A";
     const petsVal = petsCheck && petsCheck.checked ? "Yes" : "No";
     const kidsVal = kidsCheck && kidsCheck.checked ? "Yes" : "No";
+    const basementVal = basementCheck && basementCheck.checked ? "Yes" : "No";
 
     const selectedAddonsList = [];
     if (addonFridge && addonFridge.checked) selectedAddonsList.push("Inside Fridge");
@@ -267,17 +342,21 @@ if (submitBtn) {
     if (windowCount > 0) selectedAddonsList.push(`Interior Windows (x${windowCount})`);
 
     const addonsSummaryText = selectedAddonsList.length > 0 ? selectedAddonsList.join(", ") : "None";
+    const referralSummary = referral ? `${referral} (Eligible for 10% First Clean Discount)` : "None";
 
     const leadData = {
-      _subject: `New Quote Request: ${name} (${serviceLabel})`,
+      _subject: `New Quote Request: ${name} — ${detectedCity} (${serviceLabel})`,
       _replyto: email,
       "Customer Name": name,
       "Email Address": email,
-      "Phone Number": phone || "Not provided",
-      "Postal Code": postalInput ? postalInput.value.trim().toUpperCase() : "N/A",
+      "Phone Number": phone,
+      "City": detectedCity,
+      "Postal Code": formattedPostal,
+      "Referred By": referralSummary,
       "Service Requested": serviceLabel,
       "Cleaning Frequency": freqLabel,
       "Home Size": `${sqftLabel} (${bedsText}, ${bathsText})`,
+      "Basement Included in Sq Ft": basementVal,
       "Pets in Home": petsVal,
       "Children in Home": kidsVal,
       "Selected Add-ons": addonsSummaryText,
@@ -304,7 +383,7 @@ if (submitBtn) {
         resultDiv.style.display = "block";
 
         if (resultCustomThankYou) {
-          resultCustomThankYou.innerHTML = `Thanks, <strong>${name}</strong>! We've received your cleaning details and someone from our team will contact you shortly.`;
+          resultCustomThankYou.innerHTML = `Thanks, <strong>${name}</strong>! We've received your cleaning details for <strong>${detectedCity}</strong> and someone from our team will contact you shortly.`;
         }
         if (summaryService) summaryService.textContent = serviceLabel;
         if (summaryRooms) summaryRooms.textContent = `${sqftLabel} (${bedsText}, ${bathsText})`;

@@ -108,6 +108,10 @@
             <input type="checkbox" id="condition-kids" style="accent-color: #7a1fa2;" />
             <span>Children in the home</span>
           </label>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #475569; cursor: pointer;">
+            <input type="checkbox" id="condition-basement" style="accent-color: #7a1fa2;" />
+            <span>Basement included in square footage</span>
+          </label>
         </div>
       </div>
 
@@ -172,19 +176,30 @@
         Where should we reach you with your personalized quote and availability?
       </p>
 
-      <label for="client-name" style="font-size: 13px; font-weight: 600; color: #334155;">Full Name:</label><br>
-      <input type="text" id="client-name" placeholder="Jane Doe" style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+      <label for="client-name" style="font-size: 13px; font-weight: 600; color: #334155;">Full Name: <span style="color: #dc2626;">*</span></label><br>
+      <input type="text" id="client-name" placeholder="Jane Doe" required style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
 
-      <label for="client-email" style="font-size: 13px; font-weight: 600; color: #334155;">Email Address:</label><br>
-      <input type="email" id="client-email" placeholder="jane@example.com" style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+      <label for="client-email" style="font-size: 13px; font-weight: 600; color: #334155;">Email Address: <span style="color: #dc2626;">*</span></label><br>
+      <input type="email" id="client-email" placeholder="jane@example.com" required style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
 
-      <label for="client-phone" style="font-size: 13px; font-weight: 600; color: #334155;">Phone Number:</label><br>
-      <input type="tel" id="client-phone" placeholder="(905) 555-0123" style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
+      <label for="client-phone" style="font-size: 13px; font-weight: 600; color: #334155;">Phone Number: <span style="color: #dc2626;">*</span></label><br>
+      <input type="tel" id="client-phone" placeholder="(905) 555-0123" required style="width: 100%; box-sizing: border-box; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;"><br>
 
       <div style="margin-bottom: 16px;">
-        <label for="lead-postal" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">Postal / Zip Code:</label>
-        <input type="text" id="lead-postal" placeholder="e.g. L7L 1A1" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
+        <label for="lead-postal" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">Postal Code: <span style="color: #dc2626;">*</span></label>
+        <input type="text" id="lead-postal" placeholder="e.g. L7L 1A1" maxlength="7" required style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
         <span id="postal-error" style="display: none; color: #ef4444; font-size: 12px; margin-top: 4px;"></span>
+      </div>
+
+      <!-- Referral Callout Card (Option A) -->
+      <div style="margin-bottom: 16px; padding: 12px 14px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px;">
+        <label for="client-referral" style="display: block; font-size: 13px; font-weight: 700; color: #7a1fa2; margin-bottom: 4px;">
+          🎁 Have a Referral? Get 10% Off Your First Clean!
+        </label>
+        <p style="margin: 0 0 8px 0; font-size: 12px; color: #475569; line-height: 1.4;">
+          Let us know who referred you to claim 10% off your first cleaning service.
+        </p>
+        <input type="text" id="client-referral" placeholder="Friend or neighbour's name (optional)" style="width: 100%; box-sizing: border-box; padding: 9px 10px; border: 1px solid #d8b4fe; border-radius: 6px; font-size: 13px; background: #ffffff;">
       </div>
 
       <p id="error-msg" style="color: #dc2626; font-size: 13px; margin: 0 0 12px; display: none; font-weight: bold;"></p>
@@ -243,6 +258,6 @@
 
   </div>
 
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
