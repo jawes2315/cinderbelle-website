@@ -362,8 +362,8 @@
   window.addEventListener("message", function (event) {
     if (event.data && event.data.type === "RESIZE_CALCULATOR_IFRAME" && event.data.height) {
       const iframe = document.getElementById("quote-widget-iframe");
-      if (iframe) {
-        iframe.style.height = (event.data.height + 10) + "px";
+      if (iframe && event.data.height < 1200) {
+        iframe.style.height = event.data.height + "px";
       }
     }
   });

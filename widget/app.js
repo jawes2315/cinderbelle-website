@@ -407,7 +407,8 @@ if (submitBtn) {
 
 function notifyParentOfResize() {
   if (window.parent && window.parent !== window) {
-    const currentHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const widgetCard = document.body.firstElementChild;
+    const currentHeight = widgetCard ? widgetCard.offsetHeight : document.body.scrollHeight;
     window.parent.postMessage({ type: "RESIZE_CALCULATOR_IFRAME", height: currentHeight }, "*");
   }
 }
